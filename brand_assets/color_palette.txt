@@ -1,0 +1,44 @@
+Primary Brand Colors
+1. Deep Espresso Black
+
+Used in most of the typography + icon outlines.
+
+HEX: #150C06
+
+2. Roasted Brown
+
+Used in the script text and inner detailing.
+
+HEX: #4D260D
+
+3. Caramel Gold
+
+Used in decorative accents and warm highlights.
+
+HEX: #A49266
+
+4. Soft Honey Gold
+
+Lighter gold/beige highlight.
+
+HEX: #E3D3AE
+
+Neutral Colors
+5. Warm Cream
+
+Background support color.
+
+HEX: #FDFDFC
+
+6. Taupe Brown
+
+Secondary neutral used in shadows/details.
+
+HEX: #64502C
+
+Small Accent Color (from the orange/red elements)
+7. Burnt Orange Accent
+
+Used in the tiny hearts + circular highlights.
+
+Approx HEX: #C95A24
