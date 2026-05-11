@@ -49,8 +49,13 @@
     .logo-shimmer { animation: logoShimmer 4s ease-in-out infinite; }
 
     /* Navbar */
-    #navbar { transition: box-shadow 0.3s ease; }
-    #navbar.scrolled { box-shadow: 0 2px 30px rgba(21,12,6,0.65); }
+    #navbar { transition: box-shadow 0.4s ease, background-color 0.4s ease, backdrop-filter 0.4s ease; }
+    #navbar.scrolled {
+      background-color: rgba(21, 12, 6, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 2px 32px rgba(21,12,6,0.55);
+    }
 
     /* Mobile menu */
     #mobile-menu { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; }
@@ -115,13 +120,47 @@
     /* ── LOGO HALO ── */
     .logo-halo {
       position: absolute;
-      width: 440px; height: 440px;
-      background: radial-gradient(ellipse, rgba(164,146,102,0.13) 0%, transparent 68%);
+      width: 600px; height: 600px;
+      background: radial-gradient(ellipse, rgba(201,90,36,0.22) 0%, rgba(164,146,102,0.13) 42%, transparent 68%);
       border-radius: 50%;
       pointer-events: none;
       z-index: 0;
       top: 50%; left: 50%;
       transform: translate(-50%, -52%);
+    }
+
+    /* ── HERO WARM BACKGROUND ── */
+    .hero-warm-bg {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 75% 60% at 50% 44%,
+          rgba(201, 90, 36, 0.22) 0%,
+          rgba(164, 146, 102, 0.14) 40%,
+          transparent 70%),
+        radial-gradient(ellipse 45% 35% at 50% 40%,
+          rgba(227, 211, 174, 0.38) 0%,
+          transparent 55%);
+    }
+
+    /* ── STEAM PARTICLES ── */
+    @keyframes steamRise {
+      0%   { transform: translateY(0) translateX(0) scale(0.9); opacity: 0; }
+      15%  { opacity: 0.55; }
+      80%  { opacity: 0.22; }
+      100% { transform: translateY(-120px) translateX(var(--drift, 0px)) scale(1.7); opacity: 0; }
+    }
+    .steam-wrap {
+      position: absolute; inset: 0;
+      pointer-events: none; z-index: 6;
+    }
+    .steam-particle {
+      position: absolute;
+      width: var(--sz, 6px); height: var(--sz, 6px);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,90,36,0.55), rgba(164,146,102,0.18));
+      filter: blur(2.5px);
+      animation: steamRise var(--dur, 4s) ease-in var(--delay, 0s) infinite;
+      opacity: 0;
     }
 
     /* ── NAVBAR BRAND TEXT ── */
@@ -210,12 +249,24 @@
 
     /* ── HERO PARALLAX BG ── */
     .hero-parallax { will-change: transform; }
+
+    /* ── HERO LOAD ANIMATION ── */
+    .hero-fade {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .hero-fade.hero-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body class="bg-cream text-espresso font-body antialiased">
 
 <!-- ═══════════════ NAVBAR ═══════════════ -->
-<nav id="navbar" class="relative z-10 bg-espresso">
+<nav id="navbar" class="sticky top-0 z-50 bg-espresso">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between py-4">
       <a href="#" aria-label="The London Bakery Home" class="nav-brand">The London Bakery</a>
@@ -251,16 +302,35 @@
 
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="noise hero-parallax relative min-h-screen flex items-center justify-center overflow-hidden bg-cream">
+  <div class="hero-warm-bg" aria-hidden="true"></div>
+  <div class="logo-halo" aria-hidden="true"></div>
   <div class="relative z-10 flex flex-col items-center text-center px-6 py-32">
-    <img src="brand_assets/logo.png" alt="The London Bakery" class="w-72 sm:w-96 lg:w-[32rem] -mt-16 lg:-mt-24 mb-8 drop-shadow-2xl reveal visible">
-    <p class="font-display text-2xl sm:text-3xl lg:text-[2.5rem] italic text-espresso tracking-tight reveal reveal-d1 visible">London's Craft. Your City's Flavour.</p>
-    <div class="flex items-center gap-4 my-3 reveal reveal-d2 visible">
+    <div class="steam-wrap" aria-hidden="true">
+      <span class="steam-particle" style="--drift:-20px;--dur:4.4s;--delay:1.3s;--sz:6px;left:45%;top:54%"></span>
+      <span class="steam-particle" style="--drift:16px;--dur:5.1s;--delay:1.8s;--sz:9px;left:52%;top:56%"></span>
+      <span class="steam-particle" style="--drift:-8px;--dur:3.8s;--delay:2.2s;--sz:5px;left:48%;top:52%"></span>
+      <span class="steam-particle" style="--drift:24px;--dur:4.9s;--delay:1.5s;--sz:8px;left:41%;top:58%"></span>
+      <span class="steam-particle" style="--drift:-22px;--dur:5.6s;--delay:2.8s;--sz:11px;left:56%;top:55%"></span>
+      <span class="steam-particle" style="--drift:10px;--dur:4.2s;--delay:3.2s;--sz:6px;left:44%;top:60%"></span>
+      <span class="steam-particle" style="--drift:-14px;--dur:5.3s;--delay:1.1s;--sz:10px;left:54%;top:57%"></span>
+      <span class="steam-particle" style="--drift:18px;--dur:3.9s;--delay:2.5s;--sz:5px;left:47%;top:53%"></span>
+      <span class="steam-particle" style="--drift:-6px;--dur:4.7s;--delay:3.6s;--sz:7px;left:51%;top:59%"></span>
+      <span class="steam-particle" style="--drift:22px;--dur:5.8s;--delay:1.9s;--sz:12px;left:39%;top:56%"></span>
+      <span class="steam-particle" style="--drift:-18px;--dur:4.1s;--delay:3.0s;--sz:6px;left:58%;top:54%"></span>
+      <span class="steam-particle" style="--drift:12px;--dur:5.4s;--delay:2.1s;--sz:8px;left:43%;top:61%"></span>
+      <span class="steam-particle" style="--drift:-24px;--dur:3.7s;--delay:2.7s;--sz:5px;left:55%;top:52%"></span>
+      <span class="steam-particle" style="--drift:8px;--dur:4.6s;--delay:1.6s;--sz:9px;left:49%;top:57%"></span>
+      <span class="steam-particle" style="--drift:-10px;--dur:5.2s;--delay:3.4s;--sz:7px;left:53%;top:60%"></span>
+    </div>
+    <img src="brand_assets/logo.png" alt="The London Bakery" class="w-72 sm:w-96 lg:w-[32rem] -mt-16 lg:-mt-24 mb-8 drop-shadow-2xl hero-fade" data-hero-delay="0">
+    <p class="font-display text-2xl sm:text-3xl lg:text-[2.5rem] italic text-espresso tracking-tight hero-fade" data-hero-delay="1">London's Craft. Your City's Flavour.</p>
+    <div class="flex items-center gap-4 my-3 hero-fade" data-hero-delay="2">
       <div class="h-px w-28" style="background:linear-gradient(90deg,transparent,#A49266);"></div>
       <div class="w-2 h-2 rounded-full bg-caramel flex-shrink-0"></div>
       <div class="h-px w-28" style="background:linear-gradient(90deg,#A49266,transparent);"></div>
     </div>
-    <p class="text-taupe text-[10px] tracking-[0.28em] uppercase font-body mb-10 reveal reveal-d3 visible">College More · Grand Trunk Rd · Kulti, West Bengal</p>
-    <div class="flex flex-col sm:flex-row gap-4 reveal reveal-d4 visible">
+    <p class="text-taupe text-[10px] tracking-[0.28em] uppercase font-body mb-10 hero-fade" data-hero-delay="3">College More · Grand Trunk Rd · Kulti, West Bengal</p>
+    <div class="flex flex-col sm:flex-row gap-4 hero-fade" data-hero-delay="4">
       <a href="#menu" class="btn-p bg-burnt text-cream px-9 py-3.5 rounded text-xs font-semibold tracking-[0.14em] uppercase focus-visible:outline-2 focus-visible:outline-burnt">Explore Menu</a>
       <a href="tel:+919734541675" class="btn-o border border-espresso/30 text-espresso hover:bg-espresso/5 hover:border-espresso/50 px-9 py-3.5 rounded text-xs font-semibold tracking-[0.14em] uppercase focus-visible:outline-2 focus-visible:outline-espresso">Call Us Now</a>
     </div>
@@ -1033,6 +1103,13 @@
     });
   });
 
+  // ── HERO STAGGERED FADE-IN ──
+  const heroDelays = [150, 420, 640, 830, 1020];
+  document.querySelectorAll('[data-hero-delay]').forEach(el => {
+    const idx = parseInt(el.dataset.heroDelay, 10);
+    setTimeout(() => el.classList.add('hero-visible'), heroDelays[idx] ?? 200);
+  });
+
   // ── SCROLL REVEAL ──
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -1077,6 +1154,12 @@
 
   const statsEl = document.querySelector('.stat-num');
   if (statsEl) statsObserver.observe(statsEl.closest('.grid') || statsEl);
+
+  // ── NAVBAR SCROLL GLASS ──
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
 
   // ── HERO PARALLAX ──
   const heroSection = document.querySelector('.hero-parallax');
