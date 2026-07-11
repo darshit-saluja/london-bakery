@@ -1,1162 +1,685 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The London Bakery — Kulti, West Bengal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            espresso: '#150C06',
-            roasted: '#4D260D',
-            caramel: '#A49266',
-            honey: '#E3D3AE',
-            cream: '#FDFDFC',
-            taupe: '#64502C',
-            burnt: '#C95A24',
-          },
-          fontFamily: {
-            display: ['"Playfair Display"', 'Georgia', 'serif'],
-            body: ['"DM Sans"', 'system-ui', 'sans-serif'],
-          },
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The London Bakery — Stone-baked craft, delivered fresh · Kulti</title>
+<meta name="description" content="The London Bakery, Kulti — 100% pure-veg. Handcrafted chaap, momos and wood-fired pizza, made fresh every single day. College More, Grand Trunk Rd, Kulti.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          forest:   '#14432E',
+          herb:     '#1C5A3C',
+          burnt:    '#D2601A',
+          burntdk:  '#B44E12',
+          marigold: '#F2A93C',
+          gold:     '#A88A54',
+          sage:     '#E7EFDD',
+          cream:    '#FBF6EC',
+          ink:      '#1C140C',
+          mute:     '#8A7550',
+        },
+        fontFamily: {
+          display: ['Satoshi', 'system-ui', 'sans-serif'],
+          body:    ['"DM Sans"', 'system-ui', 'sans-serif'],
+          hand:    ['Caveat', 'cursive'],
+        },
       }
     }
-  </script>
-  <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: "DM Sans", system-ui, sans-serif; background-color: #FDFDFC; }
+  }
+</script>
 
-    /* Noise grain */
-    .noise { position: relative; }
-    .noise::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-      opacity: 0.4; pointer-events: none; z-index: 1;
-    }
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin:0; background:#FBF6EC; font-family:"DM Sans",system-ui,sans-serif; color:#1C140C; -webkit-font-smoothing:antialiased; }
+  ::selection { background:#F2A93C; color:#14432E; }
 
-    @keyframes logoShimmer {
-      0%, 100% { filter: brightness(1) drop-shadow(0 0 8px rgba(164,146,102,0.15)); }
-      50%       { filter: brightness(1.08) drop-shadow(0 0 28px rgba(164,146,102,0.55)); }
-    }
-    .logo-shimmer { animation: logoShimmer 4s ease-in-out infinite; }
+  /* ── Seams: the wave sits on the CURRENT bg, its fill = NEXT section color ── */
+  .seam { line-height:0; margin:-1px 0; }
+  .seam svg { display:block; width:100%; height:56px; }
+  @media (min-width:768px){ .seam svg { height:81px; } }
 
-    /* Navbar */
-    #navbar { transition: box-shadow 0.4s ease, background-color 0.4s ease, backdrop-filter 0.4s ease; }
-    #navbar.scrolled {
-      background-color: rgba(253, 253, 252, 0.82);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 2px 24px rgba(21,12,6,0.10);
-    }
+  /* ── Nav ── */
+  #nav { transition: box-shadow .35s ease, background-color .35s ease; }
+  #nav.scrolled { box-shadow: 0 6px 26px -14px rgba(28,20,12,.4); background:rgba(251,246,236,.92); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+  #mobile-menu { max-height:0; opacity:0; overflow:hidden; transition:max-height .35s ease, opacity .3s ease; }
+  #mobile-menu.open { max-height:480px; opacity:1; }
 
-    /* Mobile menu */
-    #mobile-menu { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; }
-    #mobile-menu.open { max-height: 400px; opacity: 1; }
+  /* ── Card lift ── */
+  .lift { transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease; }
+  .lift:hover { transform: translateY(-8px); }
+  .tile { transition: transform .3s ease, box-shadow .3s ease; }
+  .tile:hover { transform: translateY(-6px); box-shadow:0 22px 42px -22px rgba(28,20,12,.4); }
 
-    /* Tabs */
-    .tab-btn { transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
-    .tab-btn.active { background-color: #C95A24 !important; color: #FDFDFC !important; border-color: #C95A24 !important; }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
+  /* ── Buttons ── */
+  .btn-burnt { background:#D2601A; transition: background-color .2s ease, transform .12s ease, box-shadow .25s ease; box-shadow:0 12px 24px -10px rgba(210,96,26,.75); }
+  .btn-burnt:hover { background:#B44E12; }
+  .btn-burnt:active { transform:scale(.97); }
+  .btn-ghost { transition: border-color .2s ease, background-color .2s ease, transform .12s ease; }
+  .btn-ghost:active { transform:scale(.97); }
 
-    /* Menu card */
-    .menu-card { transition: border-color 0.2s ease, transform 0.2s ease; }
-    .menu-card:hover { border-color: #A49266 !important; transform: translateY(-1px); }
+  /* ── Marquee ── */
+  @keyframes mq { from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  .mq-mask { -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); }
+  .mq-track { display:inline-flex; gap:18px; animation: mq 42s linear infinite; will-change:transform; }
+  .mq-track:hover { animation-play-state:paused; }
 
-    /* Gallery */
-    .gallery-img { transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-    .gallery-item:hover .gallery-img { transform: scale(1.06); }
+  /* ── Reveal ── */
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+  .reveal.in { opacity:1; transform:none; }
 
-    /* Dots */
-    .dot-v { display: inline-block; width: 9px; height: 9px; background: #16a34a; border-radius: 50%; flex-shrink: 0; margin-right: 6px; }
-    .dot-n { display: inline-block; width: 9px; height: 9px; background: #dc2626; border-radius: 50%; flex-shrink: 0; margin-right: 6px; }
+  /* ── Menu tabs ── */
+  .tab-btn { position:relative; font-weight:700; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(28,20,12,.5); padding:.55rem .25rem; background:none; border:none; cursor:pointer; white-space:nowrap; transition:color .2s ease; }
+  .tab-btn:hover { color:rgba(28,20,12,.85); }
+  .tab-btn.active { color:#14432E; }
+  #tab-ind { position:absolute; bottom:0; left:0; width:0; height:2.5px; background:#D2601A; border-radius:2px; transition:left .28s cubic-bezier(.22,1,.36,1), width .28s cubic-bezier(.22,1,.36,1); }
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; animation: tabIn .35s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes tabIn { from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:none;} }
 
-    /* Buttons */
-    .btn-p { transition: background-color 0.2s ease, transform 0.15s ease; }
-    .btn-p:hover { background-color: #4D260D; }
-    .btn-p:active { transform: scale(0.97); }
-    .btn-o { transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease; }
-    .btn-o:hover { background-color: rgba(227,211,174,0.1); border-color: #E3D3AE; }
-    .btn-o:active { transform: scale(0.97); }
+  .ptable { width:100%; border-collapse:collapse; }
+  .ptable th { color:#14432E; font-size:.62rem; text-transform:uppercase; letter-spacing:.12em; padding:0 .5rem .55rem; text-align:right; font-weight:700; }
+  .ptable th:first-child { text-align:left; }
+  .ptable td { padding:.62rem .5rem; border-top:1px solid rgba(28,20,12,.08); font-size:.9rem; text-align:right; color:#1C140C; }
+  .ptable td:first-child { text-align:left; font-weight:600; }
+  .ptable tbody tr { transition:background-color .15s ease; }
+  .ptable tbody tr:hover td { background:rgba(20,67,46,.045); }
+  .vdot { display:inline-block; width:9px; height:9px; border-radius:50%; background:#1E9E52; margin-right:8px; flex-shrink:0; box-shadow:0 0 0 2px rgba(30,158,82,.18); vertical-align:middle; }
 
-    /* Section divider */
-    .gold-line { height: 1px; background: linear-gradient(90deg, transparent 0%, #A49266 50%, transparent 100%); }
-
-    /* Price table */
-    .price-table th { color: #A49266; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; padding: 0 0.5rem 0.5rem; text-align: right; }
-    .price-table th:first-child { text-align: left; }
-    .price-table td { padding: 0.55rem 0.5rem; border-top: 1px solid rgba(164,146,102,0.1); font-size: 0.875rem; color: #E3D3AE; text-align: right; }
-    .price-table td:first-child { text-align: left; color: #FDFDFC; }
-    .price-table tbody tr:hover td { background-color: rgba(164,146,102,0.06); }
-
-    /* Sub-section label */
-    .sub-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: #A49266; font-family: "DM Sans", sans-serif; font-weight: 600; margin-bottom: 0.75rem; display: block; }
-
-    /* ── SCROLL REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-d1 { transition-delay: 0.08s; }
-    .reveal-d2 { transition-delay: 0.16s; }
-    .reveal-d3 { transition-delay: 0.24s; }
-    .reveal-d4 { transition-delay: 0.32s; }
-    .reveal-d5 { transition-delay: 0.40s; }
-    .reveal-d6 { transition-delay: 0.48s; }
-
-    /* ── LOGO PULSE ── */
-    @keyframes logoPulse {
-      0%, 100% { transform: scale(1);      filter: brightness(1)    drop-shadow(0 0 10px rgba(164,146,102,0.20)); }
-      50%       { transform: scale(1.028); filter: brightness(1.12) drop-shadow(0 0 36px rgba(164,146,102,0.65)); }
-    }
-    .logo-shimmer { animation: logoPulse 3.5s ease-in-out infinite; }
-
-    /* ── LOGO HALO ── */
-    .logo-halo {
-      position: absolute;
-      width: 600px; height: 600px;
-      background: radial-gradient(ellipse, rgba(201,90,36,0.22) 0%, rgba(164,146,102,0.13) 42%, transparent 68%);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -52%);
-    }
-
-    /* ── HERO WARM BACKGROUND ── */
-    .hero-warm-bg {
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 75% 60% at 50% 44%,
-          rgba(201, 90, 36, 0.22) 0%,
-          rgba(164, 146, 102, 0.14) 40%,
-          transparent 70%),
-        radial-gradient(ellipse 45% 35% at 50% 40%,
-          rgba(227, 211, 174, 0.38) 0%,
-          transparent 55%);
-    }
-
-    /* ── STEAM PARTICLES ── */
-    @keyframes steamRise {
-      0%   { transform: translateY(0) translateX(0) scale(0.9); opacity: 0; }
-      15%  { opacity: 0.55; }
-      80%  { opacity: 0.22; }
-      100% { transform: translateY(-120px) translateX(var(--drift, 0px)) scale(1.7); opacity: 0; }
-    }
-    .steam-wrap {
-      position: absolute; inset: 0;
-      pointer-events: none; z-index: 6;
-    }
-    .steam-particle {
-      position: absolute;
-      width: var(--sz, 6px); height: var(--sz, 6px);
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,90,36,0.55), rgba(164,146,102,0.18));
-      filter: blur(2.5px);
-      animation: steamRise var(--dur, 4s) ease-in var(--delay, 0s) infinite;
-      opacity: 0;
-    }
-
-    /* ── NAVBAR LOGO ── */
-    .nav-logo { height: 55px; width: auto; display: block; }
-
-    /* ── TAB PANEL TRANSITION ── */
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; animation: tabFadeIn 0.35s cubic-bezier(0.22,1,0.36,1) both; }
-    @keyframes tabFadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── SPECIALTIES CARDS ── */
-    .spec-card {
-      transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.45s ease, border-color 0.3s ease;
-    }
-    .spec-card:hover {
-      box-shadow: 0 24px 64px rgba(164,146,102,0.18), 0 4px 18px rgba(164,146,102,0.09);
-      border-color: rgba(164,146,102,0.45) !important;
-    }
-    .spec-num {
-      position: absolute;
-      top: -0.1em; right: 0.25em;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 7rem;
-      font-weight: 900;
-      color: rgba(164,146,102,0.055);
-      line-height: 1;
-      user-select: none;
-      pointer-events: none;
-      letter-spacing: -0.04em;
-    }
-
-    /* ── BUTTON RIPPLE ── */
-    .btn-p, .btn-o { position: relative; overflow: hidden; }
-    .btn-p::after, .btn-o::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.22) 0%, transparent 65%);
-      opacity: 0;
-      transform: scale(0.6);
-      transition: transform 0.5s ease, opacity 0.5s ease;
-      pointer-events: none;
-    }
-    .btn-p:active::after, .btn-o:active::after { opacity: 1; transform: scale(2.2); transition: 0s; }
-
-    /* ── MARQUEE ── */
-    .marquee-track { overflow: hidden; }
-    @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .marquee-inner { display: inline-flex; white-space: nowrap; animation: marqueeScroll 24s linear infinite; }
-    .marquee-track:hover .marquee-inner { animation-play-state: paused; }
-
-    /* ── ABOUT IMAGE HOVER ── */
-    .about-img-wrap { overflow: hidden; }
-    .about-img-wrap img { transition: transform 7s cubic-bezier(0.25,0.46,0.45,0.94); }
-    .about-img-wrap:hover img { transform: scale(1.04); }
-
-    /* ── TESTIMONIAL HOVER ── */
-    .testi-card { transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease; }
-    .testi-card:hover { transform: translateY(-5px); box-shadow: 6px 20px 48px rgba(100,80,44,0.2), 1px 4px 12px rgba(100,80,44,0.1) !important; }
-
-    /* ── SCROLL INDICATOR ── */
-    @keyframes scrollBounce {
-      0%, 100% { transform: translateY(0); opacity: 0.35; }
-      50%       { transform: translateY(7px); opacity: 0.6; }
-    }
-    .scroll-indicator { animation: scrollBounce 1.8s ease-in-out infinite; }
-
-    /* ── HERO PARALLAX BG ── */
-    .hero-parallax { will-change: transform; }
-
-    /* ── HERO LOAD ANIMATION ── */
-    .hero-fade {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
-                  transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .hero-fade.hero-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+    .reveal { opacity:1; transform:none; }
+  }
+</style>
 </head>
-<body class="bg-cream text-espresso font-body antialiased">
 
-<!-- ═══════════════ NAVBAR ═══════════════ -->
-<nav id="navbar" class="sticky top-0 z-50 bg-cream border-b border-espresso/8">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between py-2.5">
-      <a href="#" aria-label="The London Bakery Home">
-        <img src="brand_assets/cropped_logo.png" alt="The London Bakery" class="nav-logo">
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav id="nav" class="relative bg-cream">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8">
+    <div class="flex items-center justify-between py-3">
+      <a href="#top" aria-label="The London Bakery home" class="flex items-center">
+        <img src="brand_assets/cropped_logo.png" alt="The London Bakery" class="h-11 md:h-14 w-auto">
       </a>
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#menu"        class="text-espresso text-xs font-semibold tracking-[0.18em] uppercase hover:text-burnt transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-espresso rounded-sm">Menu</a>
-        <a href="#specialties" class="text-espresso text-xs font-semibold tracking-[0.18em] uppercase hover:text-burnt transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-espresso rounded-sm">Specialties</a>
-        <a href="#about"       class="text-espresso text-xs font-semibold tracking-[0.18em] uppercase hover:text-burnt transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-espresso rounded-sm">About</a>
-        <a href="#contact"     class="text-espresso text-xs font-semibold tracking-[0.18em] uppercase hover:text-burnt transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-espresso rounded-sm">Contact</a>
+      <div class="hidden md:flex items-center gap-8 text-[11px] font-semibold tracking-[.14em] uppercase text-ink/80">
+        <a href="#menu" class="hover:text-burnt transition-colors">Menu</a>
+        <a href="#favourites" class="hover:text-burnt transition-colors">Favourites</a>
+        <a href="#offer" class="hover:text-burnt transition-colors">Offers</a>
+        <a href="#reviews" class="hover:text-burnt transition-colors">Reviews</a>
+        <a href="#visit" class="hover:text-burnt transition-colors">Visit</a>
       </div>
-      <a href="tel:+919734541675" class="hidden md:inline-flex items-center gap-2 bg-burnt text-cream px-5 py-2.5 rounded text-xs font-semibold tracking-wider hover:bg-roasted transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-burnt active:scale-95">
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-        Call Us
-      </a>
-      <button id="ham-btn" class="md:hidden text-espresso p-2 rounded focus-visible:outline-2 focus-visible:outline-espresso" aria-label="Toggle menu">
-        <svg id="ham-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <svg id="close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
+      <div class="flex items-center gap-2.5">
+        <a href="tel:+919734541675" class="hidden md:inline-flex items-center gap-2 bg-forest text-cream px-4 py-2.5 rounded-full text-[11px] font-bold tracking-[.06em] hover:bg-herb transition-colors">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          Call to Order
+        </a>
+        <button id="ham" class="md:hidden text-ink p-2 -mr-2" aria-label="Toggle menu" aria-expanded="false">
+          <svg id="ham-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="ham-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
     </div>
   </div>
-  <div id="mobile-menu" class="md:hidden bg-cream border-t border-espresso/10">
-    <div class="max-w-7xl mx-auto px-4 py-5 flex flex-col gap-5">
-      <a href="#menu"        class="text-espresso text-xs font-semibold tracking-[0.18em] uppercase hover:text-burnt transition-colors duration-200">Menu</a>
-      <a href="#specialties" class="text-espresso text-xs font-semibold tracking-[0.18em] uppercase hover:text-burnt transition-colors duration-200">Specialties</a>
-      <a href="#about"       class="text-espresso text-xs font-semibold tracking-[0.18em] uppercase hover:text-burnt transition-colors duration-200">About</a>
-      <a href="#contact"     class="text-espresso text-xs font-semibold tracking-[0.18em] uppercase hover:text-burnt transition-colors duration-200">Contact</a>
-      <a href="tel:+919734541675" class="inline-flex items-center justify-center gap-2 bg-burnt text-cream px-5 py-2.5 rounded text-xs font-semibold tracking-wider hover:bg-roasted transition-colors duration-200">
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-        Call Us
-      </a>
+  <div id="mobile-menu" class="md:hidden border-t border-ink/8 bg-cream">
+    <div class="px-5 py-5 flex flex-col gap-4 text-[13px] font-semibold tracking-[.1em] uppercase text-ink/80">
+      <a href="#menu" class="mob-link hover:text-burnt transition-colors">Menu</a>
+      <a href="#favourites" class="mob-link hover:text-burnt transition-colors">Favourites</a>
+      <a href="#offer" class="mob-link hover:text-burnt transition-colors">Offers</a>
+      <a href="#reviews" class="mob-link hover:text-burnt transition-colors">Reviews</a>
+      <a href="#visit" class="mob-link hover:text-burnt transition-colors">Visit</a>
+      <a href="tel:+919734541675" class="mob-link inline-flex items-center justify-center gap-2 bg-forest text-cream px-4 py-3 rounded-full text-[12px] font-bold tracking-wide mt-1">Call to Order</a>
     </div>
   </div>
 </nav>
 
-<!-- ═══════════════ HERO ═══════════════ -->
-<section class="noise hero-parallax relative min-h-screen flex items-center justify-center overflow-hidden bg-cream">
-  <div class="hero-warm-bg" aria-hidden="true"></div>
-  <div class="logo-halo" aria-hidden="true"></div>
-  <div class="relative z-10 flex flex-col items-center text-center px-6 py-32">
-    <div class="steam-wrap" aria-hidden="true">
-      <span class="steam-particle" style="--drift:-20px;--dur:4.4s;--delay:1.3s;--sz:6px;left:45%;top:54%"></span>
-      <span class="steam-particle" style="--drift:16px;--dur:5.1s;--delay:1.8s;--sz:9px;left:52%;top:56%"></span>
-      <span class="steam-particle" style="--drift:-8px;--dur:3.8s;--delay:2.2s;--sz:5px;left:48%;top:52%"></span>
-      <span class="steam-particle" style="--drift:24px;--dur:4.9s;--delay:1.5s;--sz:8px;left:41%;top:58%"></span>
-      <span class="steam-particle" style="--drift:-22px;--dur:5.6s;--delay:2.8s;--sz:11px;left:56%;top:55%"></span>
-      <span class="steam-particle" style="--drift:10px;--dur:4.2s;--delay:3.2s;--sz:6px;left:44%;top:60%"></span>
-      <span class="steam-particle" style="--drift:-14px;--dur:5.3s;--delay:1.1s;--sz:10px;left:54%;top:57%"></span>
-      <span class="steam-particle" style="--drift:18px;--dur:3.9s;--delay:2.5s;--sz:5px;left:47%;top:53%"></span>
-      <span class="steam-particle" style="--drift:-6px;--dur:4.7s;--delay:3.6s;--sz:7px;left:51%;top:59%"></span>
-      <span class="steam-particle" style="--drift:22px;--dur:5.8s;--delay:1.9s;--sz:12px;left:39%;top:56%"></span>
-      <span class="steam-particle" style="--drift:-18px;--dur:4.1s;--delay:3.0s;--sz:6px;left:58%;top:54%"></span>
-      <span class="steam-particle" style="--drift:12px;--dur:5.4s;--delay:2.1s;--sz:8px;left:43%;top:61%"></span>
-      <span class="steam-particle" style="--drift:-24px;--dur:3.7s;--delay:2.7s;--sz:5px;left:55%;top:52%"></span>
-      <span class="steam-particle" style="--drift:8px;--dur:4.6s;--delay:1.6s;--sz:9px;left:49%;top:57%"></span>
-      <span class="steam-particle" style="--drift:-10px;--dur:5.2s;--delay:3.4s;--sz:7px;left:53%;top:60%"></span>
-    </div>
-    <img src="brand_assets/logo.png" alt="The London Bakery" class="w-72 sm:w-96 lg:w-[32rem] -mt-16 lg:-mt-24 mb-8 drop-shadow-2xl hero-fade" data-hero-delay="0">
-    <p class="font-display text-3xl sm:text-3xl lg:text-[2.5rem] italic text-espresso tracking-tight hero-fade" data-hero-delay="1">London's Craft.<br class="sm:hidden"> Your City's Flavour.</p>
-    <div class="flex items-center gap-4 my-3 hero-fade" data-hero-delay="2">
-      <div class="h-px w-28" style="background:linear-gradient(90deg,transparent,#A49266);"></div>
-      <div class="w-2 h-2 rounded-full bg-caramel flex-shrink-0"></div>
-      <div class="h-px w-28" style="background:linear-gradient(90deg,#A49266,transparent);"></div>
-    </div>
-    <p class="text-taupe text-[10px] tracking-[0.28em] uppercase font-body mb-10 hero-fade" data-hero-delay="3">College More · Grand Trunk Rd · Kulti, West Bengal</p>
-    <div class="flex flex-col sm:flex-row gap-4 hero-fade" data-hero-delay="4">
-      <a href="#menu" class="btn-p bg-burnt text-cream px-9 py-3.5 rounded text-xs font-semibold tracking-[0.14em] uppercase focus-visible:outline-2 focus-visible:outline-burnt">Explore Menu</a>
-      <a href="tel:+919734541675" class="btn-o border border-espresso/30 text-espresso hover:bg-espresso/5 hover:border-espresso/50 px-9 py-3.5 rounded text-xs font-semibold tracking-[0.14em] uppercase focus-visible:outline-2 focus-visible:outline-espresso">Call Us Now</a>
-    </div>
-  </div>
-</section>
+<span id="top"></span>
 
-<!-- ═══════════════ ABOUT ═══════════════ -->
-<section id="about" class="bg-cream py-24 lg:py-32 relative">
-  <div class="gold-line absolute top-0 left-0 right-0"></div>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col gap-12 lg:gap-14">
-      <div class="about-img-wrap relative rounded-2xl aspect-video shadow-[6px_12px_40px_rgba(100,80,44,0.22),_2px_4px_12px_rgba(100,80,44,0.1)] reveal" style="background:radial-gradient(ellipse at 30% 40%, #4D260D 0%, #2A1506 60%, #150C06 100%);">
-        <img src="brand_assets/amibance.jpg" alt="The London Bakery atmosphere" class="w-full h-full object-cover rounded-2xl">
-        <div class="absolute inset-0 rounded-2xl" style="background:linear-gradient(to top,rgba(21,12,6,0.88) 0%,rgba(21,12,6,0.1) 55%,transparent 100%);"></div>
-        <div class="absolute inset-0 rounded-2xl mix-blend-multiply" style="background-color:rgba(164,146,102,0.22);"></div>
-        <div class="absolute bottom-8 left-8 right-8">
-          <p class="font-display italic text-honey text-xl leading-snug">"Crafted with love,<br>served with pride."</p>
-        </div>
-      </div>
-      <div>
-        <span class="text-burnt text-[10px] font-semibold tracking-[0.24em] uppercase reveal reveal-d1">Our Story</span>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold text-espresso mt-4 mb-6 leading-tight reveal reveal-d2" style="letter-spacing:-0.03em;">A Taste of Tradition,<br><em class="not-italic text-roasted">Right Here in Kulti</em></h2>
-        <div class="flex items-center gap-3 mb-8 reveal reveal-d2">
-          <div class="h-px w-14 bg-caramel"></div>
-          <div class="w-1.5 h-1.5 rounded-full bg-burnt flex-shrink-0"></div>
-        </div>
-        <div class="space-y-4 text-taupe leading-[1.8] text-[15px] reveal reveal-d3">
-          <p>At The London Bakery, we believe great food should feel like home — even if that home is thousands of miles away. Nestled at College More on Grand Trunk Road, we bring the soul of London's vibrant food culture to the heart of Kulti.</p>
-          <p>Every item on our menu is crafted with hand-picked ingredients and time-honoured recipes refined to suit your city's palate. From our signature chaaps to stone-baked pizzas, every bite tells a story worth savouring.</p>
-          <p>Whether you're dropping in for a quick bite or staying for a leisurely evening, our team is here to make every visit unforgettable. Kulti's favourite — and proudly yours.</p>
-        </div>
-        <div class="grid grid-cols-3 gap-4 mt-10 pt-10 border-t border-caramel/25 reveal reveal-d4">
-          <div class="text-center">
-            <p class="font-display text-4xl font-bold text-burnt stat-num" data-target="11" data-suffix="+">11+</p>
-            <p class="text-taupe text-[10px] mt-1.5 tracking-wider uppercase">Categories</p>
-          </div>
-          <div class="text-center border-x border-caramel/25">
-            <p class="font-display text-4xl font-bold text-burnt stat-num" data-target="100" data-suffix="%">100%</p>
-            <p class="text-taupe text-[10px] mt-1.5 tracking-wider uppercase">Fresh Daily</p>
-          </div>
-          <div class="text-center">
-            <p class="font-display text-4xl font-bold text-burnt stat-num" data-target="4.9" data-suffix="★">4.9★</p>
-            <p class="text-taupe text-[10px] mt-1.5 tracking-wider uppercase">Avg. Rating</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="gold-line absolute bottom-0 left-0 right-0"></div>
-</section>
+<!-- seam: nav (cream) → hero (forest) -->
+<div class="seam bg-cream"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,40 C180,90 320,10 480,45 C640,80 760,95 900,55 C1040,15 1180,10 1320,40 C1380,52 1410,58 1440,50 L1440,100 L0,100 Z" fill="#14432E"></path></svg></div>
 
-<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
-<section class="bg-cream py-24 lg:py-28 relative">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-14 reveal">
-      <span class="text-burnt text-[10px] font-semibold tracking-[0.24em] uppercase">What Guests Say</span>
-      <h2 class="font-display text-4xl sm:text-5xl font-bold text-espresso mt-3" style="letter-spacing:-0.03em;">Loved by Kulti</h2>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <!-- Review 1: Pushpa Bhagat -->
-      <div class="testi-card bg-cream rounded-2xl p-7 border border-caramel/20 reveal reveal-d1" style="box-shadow:4px 8px 28px rgba(100,80,44,0.12),1px 2px 8px rgba(100,80,44,0.06);">
-        <div class="flex mb-4">
-          <span class="text-caramel text-lg tracking-wider">★★★★★</span>
-        </div>
-        <p class="text-taupe leading-[1.75] text-[15px] mb-6 font-body">"Crispy crust, rich sauce, and generous toppings — Pizza Jon's never disappoints! Great variety, ambiance, and friendly staff make this a must-try for pizza lovers. Highly recommended for vegetarians."</p>
-        <div class="flex items-center gap-3 pt-5 border-t border-caramel/15">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-cream flex-shrink-0" style="background:#4D260D;">P</div>
-          <div>
-            <p class="font-semibold text-espresso text-sm">Pushpa Bhagat</p>
-            <p class="text-taupe text-xs mt-0.5">Verified Guest · ⭐⭐⭐⭐⭐</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Review 2: Subhadip Goswami -->
-      <div class="testi-card bg-cream rounded-2xl p-7 border border-caramel/20 reveal reveal-d2" style="box-shadow:4px 8px 28px rgba(100,80,44,0.12),1px 2px 8px rgba(100,80,44,0.06);">
-        <div class="flex mb-4">
-          <span class="text-caramel text-lg tracking-wider">★★★★★</span>
-        </div>
-        <p class="text-taupe leading-[1.75] text-[15px] mb-6 font-body">"Best pizza with reasonable price at ₹200–400 per person. Fantastic food, service, and atmosphere. Wait time is minimal — just up to 10 minutes. Dine-in experience you'll want to repeat."</p>
-        <div class="flex items-center gap-3 pt-5 border-t border-caramel/15">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-cream flex-shrink-0" style="background:#4D260D;">S</div>
-          <div>
-            <p class="font-semibold text-espresso text-sm">Subhadip Goswami</p>
-            <p class="text-taupe text-xs mt-0.5">Verified Guest · ⭐⭐⭐⭐⭐</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Review 3: zia mallick -->
-      <div class="testi-card bg-cream rounded-2xl p-7 border border-caramel/20 reveal reveal-d3" style="box-shadow:4px 8px 28px rgba(100,80,44,0.12),1px 2px 8px rgba(100,80,44,0.06);">
-        <div class="flex mb-4">
-          <span class="text-caramel text-lg tracking-wider">★★★★★</span>
-        </div>
-        <p class="text-taupe leading-[1.75] text-[15px] mb-6 font-body">"Pizza was baked properly and tastes way better than Domino's. At just ₹1–200 per person, you get fantastic food with great service and pleasant atmosphere. Clearly superior quality."</p>
-        <div class="flex items-center gap-3 pt-5 border-t border-caramel/15">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-cream flex-shrink-0" style="background:#4D260D;">Z</div>
-          <div>
-            <p class="font-semibold text-espresso text-sm">Zia Mallick</p>
-            <p class="text-taupe text-xs mt-0.5">Local Guide · ⭐⭐⭐⭐⭐</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Review 4: Nahid Parween -->
-      <div class="testi-card bg-cream rounded-2xl p-7 border border-caramel/20 reveal reveal-d4" style="box-shadow:4px 8px 28px rgba(100,80,44,0.12),1px 2px 8px rgba(100,80,44,0.06);">
-        <div class="flex mb-4">
-          <span class="text-caramel text-lg tracking-wider">★★★★★</span>
-        </div>
-        <p class="text-taupe leading-[1.75] text-[15px] mb-6 font-body">"Food was so delicious at this price! Staff behaviour is very amicable and food was served in less time. Overall a very good place for having a chit-chat. All-vegetarian menu, highly recommended."</p>
-        <div class="flex items-center gap-3 pt-5 border-t border-caramel/15">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-cream flex-shrink-0" style="background:#4D260D;">N</div>
-          <div>
-            <p class="font-semibold text-espresso text-sm">Nahid Parween</p>
-            <p class="text-taupe text-xs mt-0.5">Local Guide · ⭐⭐⭐⭐⭐</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Review 5: Vivek Bhagat -->
-      <div class="testi-card bg-cream rounded-2xl p-7 border border-caramel/20 reveal reveal-d5" style="box-shadow:4px 8px 28px rgba(100,80,44,0.12),1px 2px 8px rgba(100,80,44,0.06);">
-        <div class="flex mb-4">
-          <span class="text-caramel text-lg tracking-wider">★★★★★</span>
-        </div>
-        <p class="text-taupe leading-[1.75] text-[15px] mb-6 font-body">"Hands down, the tastiest pizza I've had in ages. Pizza Jon's is a flavour bomb — savoury, cheesy, and just the right amount of crisp. Outstanding food, service, and atmosphere throughout."</p>
-        <div class="flex items-center gap-3 pt-5 border-t border-caramel/15">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-cream flex-shrink-0" style="background:#4D260D;">V</div>
-          <div>
-            <p class="font-semibold text-espresso text-sm">Vivek Bhagat</p>
-            <p class="text-taupe text-xs mt-0.5">Verified Guest · ⭐⭐⭐⭐⭐</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Review 6: Kshiti Gupta -->
-      <div class="testi-card bg-cream rounded-2xl p-7 border border-caramel/20 reveal reveal-d6" style="box-shadow:4px 8px 28px rgba(100,80,44,0.12),1px 2px 8px rgba(100,80,44,0.06);">
-        <div class="flex mb-4">
-          <span class="text-caramel text-lg tracking-wider">★★★★★</span>
-        </div>
-        <p class="text-taupe leading-[1.75] text-[15px] mb-6 font-body">"Ambience is quite nice and all the beverages tasted really delicious. Dine-in experience at ₹1–200 per person with excellent food and outstanding service in the indoor dining area."</p>
-        <div class="flex items-center gap-3 pt-5 border-t border-caramel/15">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-cream flex-shrink-0" style="background:#4D260D;">K</div>
-          <div>
-            <p class="font-semibold text-espresso text-sm">Kshiti Gupta</p>
-            <p class="text-taupe text-xs mt-0.5">Verified Guest · ⭐⭐⭐⭐⭐</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ OUR SPECIALTIES ═══════════════ -->
-<section id="specialties" class="py-24 lg:py-32 relative overflow-hidden" style="background:radial-gradient(ellipse at 0% 100%,rgba(77,38,13,0.65) 0%,transparent 50%),radial-gradient(ellipse at 100% 0%,rgba(100,80,44,0.45) 0%,transparent 50%),#150C06;">
-  <div class="gold-line absolute top-0 left-0 right-0"></div>
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Heading -->
-    <div class="text-center mb-16 reveal">
-      <span class="text-burnt text-[10px] font-semibold tracking-[0.24em] uppercase">Chef's Selection</span>
-      <h2 class="font-display text-4xl sm:text-5xl font-bold text-honey mt-3 mb-5" style="letter-spacing:-0.03em;">Our Specialties</h2>
-      <div class="flex items-center justify-center gap-4">
-        <div class="h-px w-20" style="background:linear-gradient(90deg,transparent,#A49266);"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-caramel flex-shrink-0"></div>
-        <div class="h-px w-20" style="background:linear-gradient(90deg,#A49266,transparent);"></div>
-      </div>
-      <p class="text-honey/45 text-sm mt-6 max-w-sm mx-auto leading-relaxed font-body">The dishes that keep Kulti coming back, time and again.</p>
-    </div>
-
-    <!-- 2×2 Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-7">
-
-      <!-- Card 1: Delhi Chaap -->
-      <div class="spec-card relative rounded-2xl border border-caramel/18 reveal reveal-d1 flex flex-col overflow-hidden" style="background:rgba(255,255,255,0.035);">
-        <img src="our_dishes/soya_chaap.png" alt="Delhi Chaap" class="w-full h-60 sm:h-72 lg:h-80 object-cover">
-        <div class="p-8 lg:p-9 flex-1 flex flex-col relative z-10">
-          <span class="spec-num" style="top: 0.5em; right: 0.5em;">01</span>
-          <h3 class="font-display text-2xl lg:text-[1.75rem] font-bold text-honey mb-3 relative z-10" style="letter-spacing:-0.02em;">Delhi Chaap</h3>
-          <p class="text-honey/50 leading-relaxed text-sm mb-7 relative z-10">Tender, marinated soya chaap grilled to smoky perfection. Afghani, Malai, Boti, or Achari — each one a love letter to Delhi's street food soul.</p>
-          <a href="#menu" class="mt-auto inline-flex items-center gap-2 text-caramel text-xs font-semibold tracking-[0.14em] uppercase hover:text-honey transition-colors duration-200 relative z-10 w-fit">
-            View in Menu
-            <svg class="w-3.5 h-3.5 text-burnt" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Card 2: Signature Momos -->
-      <div class="spec-card relative rounded-2xl border border-caramel/18 reveal reveal-d2 flex flex-col overflow-hidden" style="background:rgba(255,255,255,0.035);">
-        <img src="our_dishes/signature_momos.png" alt="Signature Momos" class="w-full h-60 sm:h-72 lg:h-80 object-cover">
-        <div class="p-8 lg:p-9 flex-1 flex flex-col relative z-10">
-          <span class="spec-num" style="top: 0.5em; right: 0.5em;">02</span>
-          <h3 class="font-display text-2xl lg:text-[1.75rem] font-bold text-honey mb-3 relative z-10" style="letter-spacing:-0.02em;">Signature Momos</h3>
-          <p class="text-honey/50 leading-relaxed text-sm mb-7 relative z-10">Handcrafted dumplings — steamed, fried, or kurkure — packed with vibrant fillings and served with our house chutney. Veg and non-veg varieties available.</p>
-          <a href="#menu" class="mt-auto inline-flex items-center gap-2 text-caramel text-xs font-semibold tracking-[0.14em] uppercase hover:text-honey transition-colors duration-200 relative z-10 w-fit">
-            View in Menu
-            <svg class="w-3.5 h-3.5 text-burnt" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Card 3: Stone-Baked Pizza -->
-      <div class="spec-card relative rounded-2xl border border-caramel/18 reveal reveal-d3 flex flex-col overflow-hidden" style="background:rgba(255,255,255,0.035);">
-        <img src="our_dishes/stone_baked_pizza.png" alt="Stone-Baked Pizza" class="w-full h-60 sm:h-72 lg:h-80 object-cover">
-        <div class="p-8 lg:p-9 flex-1 flex flex-col relative z-10">
-          <span class="spec-num" style="top: 0.5em; right: 0.5em;">03</span>
-          <h3 class="font-display text-2xl lg:text-[1.75rem] font-bold text-honey mb-3 relative z-10" style="letter-spacing:-0.02em;">Stone-Baked Pizza</h3>
-          <p class="text-honey/50 leading-relaxed text-sm mb-7 relative z-10">Crispy crust, rich sauce, generous toppings — baked fresh every time. From classic Margherita to Peppy Paneer Supreme, London's craft lives in every slice.</p>
-          <a href="#menu" class="mt-auto inline-flex items-center gap-2 text-caramel text-xs font-semibold tracking-[0.14em] uppercase hover:text-honey transition-colors duration-200 relative z-10 w-fit">
-            View in Menu
-            <svg class="w-3.5 h-3.5 text-burnt" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Card 4: Sweet Endings -->
-      <div class="spec-card relative rounded-2xl border border-caramel/18 reveal reveal-d4 flex flex-col overflow-hidden" style="background:rgba(255,255,255,0.035);">
-        <img src="our_dishes/brownie.png" alt="Sweet Endings" class="w-full h-60 sm:h-72 lg:h-80 object-cover">
-        <div class="p-8 lg:p-9 flex-1 flex flex-col relative z-10">
-          <span class="spec-num" style="top: 0.5em; right: 0.5em;">04</span>
-          <h3 class="font-display text-2xl lg:text-[1.75rem] font-bold text-honey mb-3 relative z-10" style="letter-spacing:-0.02em;">Sweet Endings</h3>
-          <p class="text-honey/50 leading-relaxed text-sm mb-7 relative z-10">End on the richest note possible. Our Chocolava Volcano, Hot Fudge Brownie, and Chocolate Temptation are crafted to linger long after the last bite.</p>
-          <a href="#menu" class="mt-auto inline-flex items-center gap-2 text-caramel text-xs font-semibold tracking-[0.14em] uppercase hover:text-honey transition-colors duration-200 relative z-10 w-fit">
-            View in Menu
-            <svg class="w-3.5 h-3.5 text-burnt" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </a>
-        </div>
-      </div>
-
-    </div><!-- /grid -->
-
-
-
-  </div>
-  <div class="gold-line absolute bottom-0 left-0 right-0"></div>
-</section>
-
-<!-- ═══════════════ MENU ═══════════════ -->
-<section id="menu" class="py-24 lg:py-32 relative overflow-hidden" style="background:radial-gradient(ellipse at 0% 100%,rgba(77,38,13,0.6) 0%,transparent 50%),radial-gradient(ellipse at 100% 0%,rgba(100,80,44,0.4) 0%,transparent 50%),#150C06;">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-12">
-      <span class="text-burnt text-[10px] font-semibold tracking-[0.24em] uppercase">What We Serve</span>
-      <h2 class="font-display text-4xl sm:text-5xl font-bold text-honey mt-3 mb-5" style="letter-spacing:-0.03em;">Our Menu</h2>
-      <div class="flex items-center justify-center gap-4">
-        <div class="h-px w-20" style="background:linear-gradient(90deg,transparent,#A49266);"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-caramel flex-shrink-0"></div>
-        <div class="h-px w-20" style="background:linear-gradient(90deg,#A49266,transparent);"></div>
-      </div>
-    </div>
-    <div class="flex items-center justify-center gap-6 mb-10">
-      <div class="flex items-center gap-2"><span class="dot-v"></span><span class="text-honey/50 text-xs tracking-wider">Vegetarian</span></div>
-      <div class="flex items-center gap-2"><span class="dot-n"></span><span class="text-honey/50 text-xs tracking-wider">Non-Vegetarian</span></div>
-    </div>
-
-    <!-- Tab bar -->
-    <div class="flex flex-wrap justify-center gap-2 mb-10" id="tab-bar">
-      <button class="tab-btn active border border-caramel/30 text-honey/80 text-xs font-semibold tracking-wider px-4 py-2 rounded-full hover:border-caramel/60 focus-visible:outline-2 focus-visible:outline-burnt" data-tab="chaap">Chaap</button>
-      <button class="tab-btn border border-caramel/30 text-honey/80 text-xs font-semibold tracking-wider px-4 py-2 rounded-full hover:border-caramel/60 focus-visible:outline-2 focus-visible:outline-burnt" data-tab="momos">Momos</button>
-      <button class="tab-btn border border-caramel/30 text-honey/80 text-xs font-semibold tracking-wider px-4 py-2 rounded-full hover:border-caramel/60 focus-visible:outline-2 focus-visible:outline-burnt" data-tab="burgers">Burgers</button>
-      <button class="tab-btn border border-caramel/30 text-honey/80 text-xs font-semibold tracking-wider px-4 py-2 rounded-full hover:border-caramel/60 focus-visible:outline-2 focus-visible:outline-burnt" data-tab="pizza">Pizza</button>
-      <button class="tab-btn border border-caramel/30 text-honey/80 text-xs font-semibold tracking-wider px-4 py-2 rounded-full hover:border-caramel/60 focus-visible:outline-2 focus-visible:outline-burnt" data-tab="sandwiches">Sandwiches</button>
-      <button class="tab-btn border border-caramel/30 text-honey/80 text-xs font-semibold tracking-wider px-4 py-2 rounded-full hover:border-caramel/60 focus-visible:outline-2 focus-visible:outline-burnt" data-tab="sides">Sides &amp; Snacks</button>
-      <button class="tab-btn border border-caramel/30 text-honey/80 text-xs font-semibold tracking-wider px-4 py-2 rounded-full hover:border-caramel/60 focus-visible:outline-2 focus-visible:outline-burnt" data-tab="kababs">Kababs</button>
-      <button class="tab-btn border border-caramel/30 text-honey/80 text-xs font-semibold tracking-wider px-4 py-2 rounded-full hover:border-caramel/60 focus-visible:outline-2 focus-visible:outline-burnt" data-tab="springrolls">Spring Rolls</button>
-      <button class="tab-btn border border-caramel/30 text-honey/80 text-xs font-semibold tracking-wider px-4 py-2 rounded-full hover:border-caramel/60 focus-visible:outline-2 focus-visible:outline-burnt" data-tab="pasta">Pasta</button>
-      <button class="tab-btn border border-caramel/30 text-honey/80 text-xs font-semibold tracking-wider px-4 py-2 rounded-full hover:border-caramel/60 focus-visible:outline-2 focus-visible:outline-burnt" data-tab="desserts">Desserts</button>
-      <button class="tab-btn border border-caramel/30 text-honey/80 text-xs font-semibold tracking-wider px-4 py-2 rounded-full hover:border-caramel/60 focus-visible:outline-2 focus-visible:outline-burnt" data-tab="beverages">Beverages</button>
-    </div>
-
-    <!-- ── CHAAP ── -->
-    <div class="tab-panel active" id="tab-chaap">
-      <div class="max-w-2xl mx-auto">
-        <span class="sub-label">Delhi's Special Chaap</span>
-        <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-          <table class="price-table w-full">
-            <thead><tr><th>Item</th><th>Half</th><th>Full</th></tr></thead>
-            <tbody>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Veg Afghani Chaap</td><td>₹89</td><td>₹159</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Veg Malai Chaap</td><td>₹89</td><td>₹159</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Veg Boti Chaap</td><td>₹89</td><td>₹159</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Amritsari Achari Chaap</td><td>₹89</td><td>₹159</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Veg Kurkuri Chaap</td><td>₹89</td><td>₹159</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── MOMOS ── -->
-    <div class="tab-panel" id="tab-momos">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div>
-          <span class="sub-label">Veg Steamed Momos</span>
-          <div class="rounded-xl overflow-hidden border border-caramel/20 mb-6" style="background:rgba(255,255,255,0.04);">
-            <table class="price-table w-full"><thead><tr><th>Item</th><th>Price</th></tr></thead>
-              <tbody>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Steamed Veg Momo</td><td>₹79</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Steamed Veg Popcorn Momo</td><td>₹79</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Steamed Paneer Momo</td><td>₹99</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Steamed Paneer Popcorn Momo</td><td>₹99</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Steamed Cheese Momos</td><td>₹109</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Steamed Cheese &amp; Corn Momos</td><td>₹109</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <span class="sub-label">Veg Fried Momos</span>
-          <div class="rounded-xl overflow-hidden border border-caramel/20 mb-6" style="background:rgba(255,255,255,0.04);">
-            <table class="price-table w-full"><thead><tr><th>Item</th><th>Price</th></tr></thead>
-              <tbody>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Fried Veg Momo</td><td>₹89</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Fried Popcorn Veg Momo</td><td>₹89</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Fried Paneer Momo</td><td>₹109</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Fried Paneer Popcorn Momo</td><td>₹109</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Fried Cheese Momos</td><td>₹119</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Fried Cheese &amp; Corn Momos</td><td>₹119</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <span class="sub-label">Kurkure Veg Momos</span>
-          <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-            <table class="price-table w-full"><thead><tr><th>Item</th><th>Price</th></tr></thead>
-              <tbody>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Kurkure Veg Momos</td><td>₹129</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Kurkure Paneer Momos</td><td>₹139</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div>
-          <span class="sub-label">Non Veg Steamed Momos</span>
-          <div class="rounded-xl overflow-hidden border border-caramel/20 mb-6" style="background:rgba(255,255,255,0.04);">
-            <table class="price-table w-full"><thead><tr><th>Item</th><th>Price</th></tr></thead>
-              <tbody>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Chicken Momo</td><td>₹99</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Butter Chicken Momo</td><td>₹109</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Chicken Cheese Momo</td><td>₹109</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <span class="sub-label">Non Veg Fried Momos</span>
-          <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-            <table class="price-table w-full"><thead><tr><th>Item</th><th>Price</th></tr></thead>
-              <tbody>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Fried Chicken Momo</td><td>₹109</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Fried Butter Chicken Momo</td><td>₹119</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Fried Chicken Cheese Momo</td><td>₹139</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Chicken Kurkure Momo</td><td>₹119</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── BURGERS ── -->
-    <div class="tab-panel" id="tab-burgers">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div>
-          <span class="sub-label">Veg Burgers</span>
-          <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-            <table class="price-table w-full"><thead><tr><th>Item</th><th>Price</th></tr></thead>
-              <tbody>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Crunchy Aloo Tikki</td><td>₹49</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Crunchy Aloo Tikki &amp; Cheese</td><td>₹69</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Super Veggie</td><td>₹79</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Super Veggie &amp; Cheese</td><td>₹99</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Peri Peri Cheese Zinger</td><td>₹109</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div>
-          <span class="sub-label">Non Veg Burgers</span>
-          <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-            <table class="price-table w-full"><thead><tr><th>Item</th><th>Price</th></tr></thead>
-              <tbody>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Chicken Burger</td><td>₹69</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Chicken &amp; Cheese Burger</td><td>₹89</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Crunchy Chicken Tikki Burger</td><td>₹99</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Crunchy Chicken Tikki &amp; Cheese</td><td>₹119</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Peri Peri Chicken &amp; Cheese Zinger</td><td>₹129</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── PIZZA ── -->
-    <div class="tab-panel" id="tab-pizza">
-      <div class="mb-10">
-        <h3 class="font-display text-xl text-honey font-semibold mb-6 flex items-center gap-3"><span class="dot-v w-3 h-3"></span>Veg Pizza</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <!-- Signature Veg -->
-          <div>
-            <span class="sub-label">Signature</span>
-            <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-              <table class="price-table w-full"><thead><tr><th>Item</th><th>S</th><th>M</th><th>L</th></tr></thead>
-                <tbody>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Margherita</td><td>₹99</td><td>₹149</td><td>₹299</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Cheese &amp; Tomato</td><td>₹109</td><td>₹189</td><td>₹319</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Cheese &amp; Onion</td><td>₹109</td><td>₹189</td><td>₹319</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Cheese &amp; Capsicum</td><td>₹109</td><td>₹189</td><td>₹319</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Cheese &amp; Corn</td><td>₹109</td><td>₹189</td><td>₹319</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- Premium Veg -->
-          <div>
-            <span class="sub-label">Premium</span>
-            <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-              <table class="price-table w-full"><thead><tr><th>Item</th><th>S</th><th>M</th><th>L</th></tr></thead>
-                <tbody>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Fresh Veggies</td><td>₹195</td><td>₹299</td><td>₹399</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Farm Fresh</td><td>₹195</td><td>₹299</td><td>₹399</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Deluxe Veggie</td><td>₹195</td><td>₹299</td><td>₹399</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- Supreme Veg -->
-          <div>
-            <span class="sub-label">Supreme</span>
-            <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-              <table class="price-table w-full"><thead><tr><th>Item</th><th>S</th><th>M</th><th>L</th></tr></thead>
-                <tbody>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Spicy Veg</td><td>₹189</td><td>₹319</td><td>₹519</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Peppy Paneer</td><td>₹189</td><td>₹319</td><td>₹519</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Veg Supreme</td><td>₹189</td><td>₹319</td><td>₹519</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-v"></span>Paneer Makhani</td><td>₹189</td><td>₹319</td><td>₹519</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <h3 class="font-display text-xl text-honey font-semibold mb-6 flex items-center gap-3"><span class="dot-n w-3 h-3"></span>Non Veg Pizza</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <!-- Signature Non-Veg -->
-          <div>
-            <span class="sub-label">Signature</span>
-            <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-              <table class="price-table w-full"><thead><tr><th>Item</th><th>S</th><th>M</th><th>L</th></tr></thead>
-                <tbody>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>Cheese &amp; Chicken</td><td>₹195</td><td>₹329</td><td>₹489</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>Chicken &amp; Corn</td><td>₹195</td><td>₹329</td><td>₹489</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>Chicken &amp; Onion</td><td>₹195</td><td>₹329</td><td>₹489</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>Chicken Sausage</td><td>₹195</td><td>₹329</td><td>₹489</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- Premium Non-Veg -->
-          <div>
-            <span class="sub-label">Premium</span>
-            <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-              <table class="price-table w-full"><thead><tr><th>Item</th><th>S</th><th>M</th><th>L</th></tr></thead>
-                <tbody>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>BBQ Chicken</td><td>₹239</td><td>₹339</td><td>₹495</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>Hot &amp; Spicy</td><td>₹239</td><td>₹339</td><td>₹495</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>Chicken Peri Peri</td><td>₹239</td><td>₹339</td><td>₹495</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>Chicken Salami</td><td>₹239</td><td>₹339</td><td>₹495</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- Supreme Non-Veg -->
-          <div>
-            <span class="sub-label">Supreme</span>
-            <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-              <table class="price-table w-full"><thead><tr><th>Item</th><th>S</th><th>M</th><th>L</th></tr></thead>
-                <tbody>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>Chicken Delight</td><td>₹269</td><td>₹399</td><td>₹539</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>Chicken Kabab</td><td>₹269</td><td>₹399</td><td>₹539</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>BBQ Chicken Supreme</td><td>₹269</td><td>₹399</td><td>₹539</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>Chicken Mix</td><td>₹269</td><td>₹399</td><td>₹539</td></tr>
-                  <tr><td class="flex items-center gap-1.5"><span class="dot-n"></span>Mexican Chicken</td><td>₹269</td><td>₹399</td><td>₹539</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── SANDWICHES ── -->
-    <div class="tab-panel" id="tab-sandwiches">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div>
-          <span class="sub-label">Veg Sandwiches</span>
-          <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-            <table class="price-table w-full"><thead><tr><th>Item</th><th>Price</th></tr></thead>
-              <tbody>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Vegetables</td><td>₹49</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Vegetable &amp; Cheese</td><td>₹69</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Paneer &amp; Vegetable</td><td>₹69</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Paneer &amp; Vegetables with Cheese</td><td>₹89</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Peri Peri Masala Corn &amp; Cheese</td><td>₹99</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div>
-          <span class="sub-label">Non Veg Sandwiches</span>
-          <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-            <table class="price-table w-full"><thead><tr><th>Item</th><th>Price</th></tr></thead>
-              <tbody>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Chicken Sandwich</td><td>₹119</td></tr>
-                <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Chicken Sandwich &amp; Cheese</td><td>₹139</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── SIDES ── -->
-    <div class="tab-panel" id="tab-sides">
-      <div class="max-w-xl mx-auto">
-        <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-          <table class="price-table w-full"><thead><tr><th>Item</th><th>Price</th></tr></thead>
-            <tbody>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>French Fries / Cheese Masala Fries</td><td>₹69</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Peri Peri Fries</td><td>₹79</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Peri Peri Cheese Fries</td><td>₹99</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Garlic Bread</td><td>₹59</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Cheese Garlic Bread</td><td>₹89</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Stuffed Cheese Garlic Bread</td><td>₹119</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── KABABS ── -->
-    <div class="tab-panel" id="tab-kababs">
-      <div class="max-w-2xl mx-auto">
-        <span class="sub-label">Delhi's Special Veg Kababs</span>
-        <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-          <table class="price-table w-full"><thead><tr><th>Item</th><th>Half</th><th>Full</th></tr></thead>
-            <tbody>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Veg Shami Kabab</td><td>₹99</td><td>₹99</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Hara Bhara Kabab</td><td>₹99</td><td>₹99</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Falafel Veg Seekh Kabab</td><td>₹99</td><td>₹99</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Veg Dahi Ke Kabab</td><td>₹99</td><td>₹99</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── SPRING ROLLS ── -->
-    <div class="tab-panel" id="tab-springrolls">
-      <div class="max-w-2xl mx-auto">
-        <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-          <table class="price-table w-full"><thead><tr><th>Item</th><th>Half</th><th>Full</th></tr></thead>
-            <tbody>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Veg Spring Roll</td><td>₹70</td><td>₹120</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Paneer Spring Roll</td><td>₹80</td><td>₹140</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-n"></span>Chicken Spring Roll</td><td>₹80</td><td>₹140</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── PASTA ── -->
-    <div class="tab-panel" id="tab-pasta">
-      <div class="max-w-2xl mx-auto">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <span class="sub-label">Pasta — ₹99</span>
-            <div class="rounded-xl border border-caramel/20 divide-y divide-caramel/10" style="background:rgba(255,255,255,0.04);">
-              <div class="flex items-center gap-2 px-4 py-3.5 text-honey text-sm"><span class="dot-v"></span>White Sauce Cheese Pasta</div>
-              <div class="flex items-center gap-2 px-4 py-3.5 text-honey text-sm"><span class="dot-v"></span>Red Sauce Pasta</div>
-              <div class="flex items-center gap-2 px-4 py-3.5 text-honey text-sm"><span class="dot-v"></span>Mix Sauce Pasta</div>
-            </div>
-          </div>
-          <div>
-            <span class="sub-label">Pasta + Garlic Bread — ₹129</span>
-            <div class="rounded-xl border border-caramel/20 divide-y divide-caramel/10" style="background:rgba(255,255,255,0.04);">
-              <div class="flex items-center gap-2 px-4 py-3.5 text-honey text-sm"><span class="dot-v"></span>White Sauce Cheese Pasta</div>
-              <div class="flex items-center gap-2 px-4 py-3.5 text-honey text-sm"><span class="dot-v"></span>Red Sauce Pasta</div>
-              <div class="flex items-center gap-2 px-4 py-3.5 text-honey text-sm"><span class="dot-v"></span>Mix Sauce Pasta</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── DESSERTS ── -->
-    <div class="tab-panel" id="tab-desserts">
-      <div class="max-w-md mx-auto">
-        <div class="rounded-xl overflow-hidden border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-          <table class="price-table w-full"><thead><tr><th>Item</th><th>Price</th></tr></thead>
-            <tbody>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Hot Fudge Brownie</td><td>₹119</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Chocolava Volcano</td><td>₹99</td></tr>
-              <tr><td class="flex items-center gap-2"><span class="dot-v"></span>Chocolate Temptation</td><td>₹149</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── BEVERAGES ── -->
-    <div class="tab-panel" id="tab-beverages">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div>
-          <span class="sub-label">Mocktail Cooler — ₹69</span>
-          <div class="rounded-xl border border-caramel/20 divide-y divide-caramel/10" style="background:rgba(255,255,255,0.04);">
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Blue Lagoon</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Green Mint</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Passion Fruit</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Virgin Mojito</div>
-          </div>
-        </div>
-        <div>
-          <span class="sub-label">Ice Tea — ₹69</span>
-          <div class="rounded-xl border border-caramel/20 divide-y divide-caramel/10 mb-6" style="background:rgba(255,255,255,0.04);">
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Lemon Mint</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Blueberry</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Blackcurrant</div>
-          </div>
-          <span class="sub-label">Bubble Tea — ₹99</span>
-          <div class="rounded-xl border border-caramel/20 divide-y divide-caramel/10" style="background:rgba(255,255,255,0.04);">
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Taro Bubble Tea</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Tiramisu Bubble Tea</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Hazelnut Bubble Tea</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Chocolate Bubble Tea</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Coffee Bubble Tea</div>
-          </div>
-        </div>
-        <div>
-          <span class="sub-label">Cold Coffee — ₹99</span>
-          <div class="rounded-xl border border-caramel/20 divide-y divide-caramel/10 mb-6" style="background:rgba(255,255,255,0.04);">
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Classic Coffee</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Hazelnut Coffee</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Butter Scotch</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>French Vanilla</div>
-          </div>
-          <span class="sub-label">Premium Shakes — ₹99</span>
-          <div class="rounded-xl border border-caramel/20 divide-y divide-caramel/10" style="background:rgba(255,255,255,0.04);">
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Butter Scotch</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Strawberry</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Heavy Chocolate</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Blueberry</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Black Currant</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Oreo Punch</div>
-            <div class="flex items-center gap-2 px-4 py-3 text-honey text-sm"><span class="dot-v"></span>Vanilla Classic</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /max-w -->
-</section>
-
-<!-- ═══════════════ CONTACT ═══════════════ -->
-<section id="contact" class="py-24 lg:py-32 relative" style="background:radial-gradient(ellipse at 0% 100%,rgba(77,38,13,0.4) 0%,transparent 50%),radial-gradient(ellipse at 100% 0%,rgba(100,80,44,0.25) 0%,transparent 50%),#150C06;">
-  <div class="gold-line absolute top-0 left-0 right-0" style="background:linear-gradient(90deg,transparent 0%,#A49266 50%,transparent 100%);"></div>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-14">
-      <span class="text-burnt text-[10px] font-semibold tracking-[0.24em] uppercase">Find Us</span>
-      <h2 class="font-display text-4xl sm:text-5xl font-bold text-honey mt-3" style="letter-spacing:-0.03em;">Location &amp; Hours</h2>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-      <!-- Address -->
-      <div class="rounded-2xl p-8 border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6" style="background:rgba(201,90,36,0.2);">
-          <svg class="w-5 h-5 text-burnt" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:#C95A24;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-        </div>
-        <h3 class="font-display text-xl text-honey font-semibold mb-4">Our Address</h3>
-        <p class="text-honey/60 leading-[1.8] text-sm">
-          The London Bakery<br>
-          College More, Grand Trunk Rd<br>
-          Near HDFC Bank<br>
-          Kulti, West Bengal 713343
+<!-- ══════════════ HERO ══════════════ -->
+<section class="relative overflow-hidden bg-forest">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8 pt-6 pb-16 lg:pb-24 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-6 items-center">
+      <div class="text-center lg:text-left order-2 lg:order-1">
+        <h1 class="font-display font-black text-cream mt-1 mb-5 leading-[1.02]" style="font-size:clamp(38px,6.4vw,62px);letter-spacing:-.03em;">
+          Exciting treats, freshly baked <span class="text-marigold">daily</span>.
+        </h1>
+        <p class="text-cream/75 text-[15px] leading-relaxed max-w-md mx-auto lg:mx-0 mb-8">
+          From Delhi-style chaap to wood-fired pizza and molten brownies — crafted with love, the finest ingredients, and a proper London accent.
         </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-9">
+          <a href="#menu" class="btn-burnt text-white font-bold uppercase tracking-[.06em] text-[12px] px-7 py-4 rounded-xl">Explore the Menu</a>
+          <a href="tel:+919734541675" class="btn-ghost border border-cream/35 text-cream font-bold uppercase tracking-[.06em] text-[12px] px-7 py-4 rounded-xl hover:border-cream/70">Call to Order</a>
+        </div>
+        <div class="flex items-center gap-3.5 justify-center lg:justify-start">
+          <div class="flex">
+            <span class="w-8 h-8 rounded-full bg-gold border-2 border-forest"></span>
+            <span class="w-8 h-8 rounded-full bg-burnt border-2 border-forest -ml-2.5"></span>
+            <span class="w-8 h-8 rounded-full bg-sage border-2 border-forest -ml-2.5"></span>
+          </div>
+          <div class="text-left">
+            <div class="text-marigold tracking-[3px] text-[13px] leading-none">★★★★★</div>
+            <div class="text-cream/70 text-[11px] mt-1"><strong class="text-cream">4.9</strong> · 1,200+ happy guests</div>
+          </div>
+        </div>
       </div>
 
-      <!-- Hours -->
-      <div class="rounded-2xl p-8 border border-caramel/20" style="background:rgba(255,255,255,0.04);">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6" style="background:rgba(201,90,36,0.2);">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:#C95A24;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        </div>
-        <h3 class="font-display text-xl text-honey font-semibold mb-4">Opening Hours</h3>
-        <table class="w-full text-sm">
-          <tbody>
-            <tr class="border-b border-caramel/10"><td class="py-2 text-honey/60">Monday</td><td class="py-2 text-honey text-right">10:30 am – 10:00 pm</td></tr>
-            <tr class="border-b border-caramel/10"><td class="py-2 text-honey/60">Tuesday</td><td class="py-2 text-honey text-right">10:30 am – 10:00 pm</td></tr>
-            <tr class="border-b border-caramel/10"><td class="py-2 text-honey/60">Wednesday</td><td class="py-2 text-honey text-right">10:30 am – 10:00 pm</td></tr>
-            <tr class="border-b border-caramel/10"><td class="py-2 text-honey/60">Thursday</td><td class="py-2 text-honey text-right">10:30 am – 10:00 pm</td></tr>
-            <tr class="border-b border-caramel/10"><td class="py-2 text-honey/60">Friday</td><td class="py-2 text-honey text-right">10:30 am – 10:00 pm</td></tr>
-            <tr class="border-b border-caramel/10"><td class="py-2 text-honey/60">Saturday</td><td class="py-2 text-honey text-right">10:30 am – 10:00 pm</td></tr>
-            <tr><td class="py-2 text-honey/60">Sunday</td><td class="py-2 text-honey text-right">10:30 am – 10:00 pm</td></tr>
-          </tbody>
-        </table>
+      <div class="order-1 lg:order-2 relative flex items-center justify-center min-h-[300px] lg:min-h-[480px]">
+        <img src="dishes/pizza-hero-pull.png" alt="Stone-baked paneer margherita pizza with a cheesy pull" class="relative z-10 w-full max-w-[680px] drop-shadow-[0_30px_50px_rgba(0,0,0,.45)]">
       </div>
+    </div>
+  </div>
+</section>
 
-      <!-- Call / Follow -->
-      <div class="rounded-2xl p-8 border border-caramel/20 flex flex-col" style="background:rgba(255,255,255,0.04);">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6" style="background:rgba(201,90,36,0.2);">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:#C95A24;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-        </div>
-        <h3 class="font-display text-xl text-honey font-semibold mb-4">Get In Touch</h3>
-        <p class="text-honey/60 text-sm mb-6 leading-relaxed">Call us for orders, reservations, or any queries. We're happy to help!</p>
-        <a href="tel:+919734541675" class="btn-p bg-burnt text-cream px-6 py-3.5 rounded text-xs font-semibold tracking-[0.14em] uppercase text-center mb-4 focus-visible:outline-2 focus-visible:outline-burnt">
-          +91 97345 41675
+<!-- seam: hero (forest) → offers (sage) -->
+<div class="seam bg-forest"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,55 C160,15 300,95 460,60 C620,25 740,10 880,50 C1020,90 1160,95 1300,60 C1370,45 1410,35 1440,45 L1440,100 L0,100 Z" fill="#E7EFDD"></path></svg></div>
+
+<!-- ══════════════ OFFERS ══════════════ -->
+<section id="offer" class="bg-sage pt-2 pb-12">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8">
+    <div class="text-center mb-8 reveal">
+      <h2 class="font-display font-bold text-ink" style="font-size:clamp(26px,3.6vw,34px);letter-spacing:-.02em">This month's offers</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4 lg:gap-6 items-start reveal max-w-4xl mx-auto">
+      <!-- Left: pizza (portrait) -->
+      <a href="tel:+919734541675" class="lift block rounded-3xl overflow-hidden shadow-[0_18px_44px_-20px_rgba(28,20,12,.5)]">
+        <img src="offers/offer-2.png" alt="Special offer — buy any large pizza, get a small pizza free" class="block w-full h-auto">
+      </a>
+      <!-- Right: cake (top) + garlic bread (bottom) -->
+      <div class="flex flex-col gap-4 lg:gap-6">
+        <a href="tel:+919734541675" class="lift block rounded-3xl overflow-hidden shadow-[0_18px_44px_-20px_rgba(28,20,12,.5)]">
+          <img src="offers/offer-1.png" alt="Buy any cake, get 10% off" class="block w-full h-auto">
         </a>
-        <a href="https://www.instagram.com/pizza.jons/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2.5 border border-caramel/30 text-honey/70 px-6 py-3.5 rounded text-xs font-semibold tracking-wider hover:border-caramel/60 hover:text-honey transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-caramel">
-          <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <a href="tel:+919734541675" class="lift block rounded-3xl overflow-hidden shadow-[0_18px_44px_-20px_rgba(28,20,12,.5)]">
+          <img src="offers/offer-3.png" alt="Free garlic bread on orders above ₹400" class="block w-full h-auto">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- seam: offers (sage) → menu (cream) -->
+<div class="seam bg-sage"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,40 C180,90 320,10 480,45 C640,80 760,95 900,55 C1040,15 1180,10 1320,40 C1380,52 1410,58 1440,50 L1440,100 L0,100 Z" fill="#FBF6EC"></path></svg></div>
+
+<!-- ══════════════ CATEGORIES + FULL MENU (one continuous cream block) ══════════════ -->
+<section id="menu" class="bg-cream pt-2 pb-4">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8">
+    <div class="text-center mb-9 reveal">
+      <h2 class="font-display font-bold text-ink" style="font-size:clamp(26px,3.6vw,34px);letter-spacing:-.02em">Browse the menu</h2>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 lg:gap-4">
+      <a href="#tab-pizza" data-cat="pizza" class="tile cat-link bg-white rounded-3xl p-4 text-center shadow-[0_3px_14px_rgba(28,20,12,.06)] reveal">
+        <div class="w-[72px] h-[72px] mx-auto mb-3.5 rounded-2xl overflow-hidden bg-white grid place-items-center"><img src="dishes/pizza.png" class="w-full h-full object-contain" alt="Pizza"></div>
+        <p class="font-bold text-[14px]">Pizza</p><p class="text-mute text-[11.5px]">23 varieties</p>
+      </a>
+      <a href="#tab-momos" data-cat="momos" class="tile cat-link bg-white rounded-3xl p-4 text-center shadow-[0_3px_14px_rgba(28,20,12,.06)] reveal">
+        <div class="w-[72px] h-[72px] mx-auto mb-3.5 rounded-2xl overflow-hidden bg-white grid place-items-center"><img src="dishes/momos.png" class="w-full h-full object-contain" alt="Momos"></div>
+        <p class="font-bold text-[14px]">Momos</p><p class="text-mute text-[11.5px]">14 varieties</p>
+      </a>
+      <a href="#tab-chaap" data-cat="chaap" class="tile cat-link bg-white rounded-3xl p-4 text-center shadow-[0_3px_14px_rgba(28,20,12,.06)] reveal">
+        <div class="w-[72px] h-[72px] mx-auto mb-3.5 rounded-2xl overflow-hidden bg-white grid place-items-center"><img src="dishes/malai_chaap.png" class="w-full h-full object-contain" alt="Chaap"></div>
+        <p class="font-bold text-[14px]">Chaap</p><p class="text-mute text-[11.5px]">5 varieties</p>
+      </a>
+      <a href="#menu" class="tile cat-link bg-white rounded-3xl p-4 text-center shadow-[0_3px_14px_rgba(28,20,12,.06)] reveal">
+        <div class="w-[72px] h-[72px] mx-auto mb-3.5 rounded-2xl overflow-hidden bg-white grid place-items-center"><img src="dishes/brownie.png" class="w-full h-full object-contain" alt="Desserts"></div>
+        <p class="font-bold text-[14px]">Desserts</p><p class="text-mute text-[11.5px]">11 varieties</p>
+      </a>
+      <a href="#tab-burgers" data-cat="burgers" class="tile cat-link bg-white rounded-3xl p-4 text-center shadow-[0_3px_14px_rgba(28,20,12,.06)] reveal">
+        <div class="w-[72px] h-[72px] mx-auto mb-3.5 rounded-2xl overflow-hidden bg-white grid place-items-center"><img src="dishes/burger.png" class="w-full h-full object-contain" alt="Burgers"></div>
+        <p class="font-bold text-[14px]">Burgers</p><p class="text-mute text-[11.5px]">10 varieties</p>
+      </a>
+      <a href="#tab-beverages" data-cat="beverages" class="tile cat-link bg-white rounded-3xl p-4 text-center shadow-[0_3px_14px_rgba(28,20,12,.06)] reveal">
+        <div class="w-[72px] h-[72px] mx-auto mb-3.5 rounded-2xl overflow-hidden bg-white grid place-items-center"><img src="dishes/boba.png" class="w-full h-full object-contain" alt="Bubble Tea"></div>
+        <p class="font-bold text-[14px]">Bubble Tea</p><p class="text-mute text-[11.5px]">5 flavours</p>
+      </a>
+    </div>
+
+    <!-- Full tabbed menu -->
+    <div class="mt-16 mb-2 text-center reveal">
+      <h2 class="font-display font-bold text-ink mb-4" style="font-size:clamp(26px,3.6vw,34px);letter-spacing:-.02em">The full menu</h2>
+      <span class="inline-flex items-center gap-2 border border-herb/25 bg-herb/8 rounded-full px-3.5 py-1.5">
+        <svg class="w-3 h-3 text-herb" viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2-8 2C14 9 11 12 11 12S11 8 17 8z"/></svg>
+        <span class="text-herb font-bold tracking-[.16em] uppercase" style="font-size:.58rem">100% Pure Veg — every item vegetarian</span>
+      </span>
+    </div>
+
+    <div class="relative mt-8 mb-8">
+      <div class="overflow-x-auto pb-px" id="tab-scroll">
+        <div class="flex gap-6 min-w-max px-1 relative" id="tab-bar">
+          <button class="tab-btn active" data-tab="chaap">Chaap</button>
+          <button class="tab-btn" data-tab="kababs">Kababs</button>
+          <button class="tab-btn" data-tab="garlicbread">Garlic Bread</button>
+          <button class="tab-btn" data-tab="pasta">Pasta</button>
+          <button class="tab-btn" data-tab="momos">Momos</button>
+          <button class="tab-btn" data-tab="burgers">Burgers</button>
+          <button class="tab-btn" data-tab="sandwich">Sandwich</button>
+          <button class="tab-btn" data-tab="fries">French Fries</button>
+          <button class="tab-btn" data-tab="pizza">Pizza</button>
+          <button class="tab-btn" data-tab="combos">Combos</button>
+          <button class="tab-btn" data-tab="beverages">Beverages</button>
+          <span id="tab-ind"></span>
+        </div>
+      </div>
+      <div class="absolute bottom-0 left-0 right-0 h-px bg-ink/10"></div>
+    </div>
+
+    <div class="max-w-2xl mx-auto pb-4">
+      <!-- CHAAP -->
+      <div class="tab-panel active" id="tab-chaap">
+        <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+          <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Tandoori Chaap</p>
+          <table class="ptable"><thead><tr><th>Item</th><th>Half</th><th>Full</th></tr></thead><tbody>
+            <tr><td><span class="vdot"></span>Malai Chaap</td><td>₹99</td><td>₹169</td></tr>
+            <tr><td><span class="vdot"></span>Afghani Chaap</td><td>₹99</td><td>₹169</td></tr>
+            <tr><td><span class="vdot"></span>Veg Boti Chaap</td><td>₹99</td><td>₹169</td></tr>
+            <tr><td><span class="vdot"></span>Amritsari Achari Chaap</td><td>₹99</td><td>₹169</td></tr>
+            <tr><td><span class="vdot"></span>Kurkure Chaap</td><td>₹99</td><td>₹169</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <!-- KABABS -->
+      <div class="tab-panel" id="tab-kababs">
+        <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+          <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Veg Kababs</p>
+          <table class="ptable"><thead><tr><th>Item</th><th>Half</th><th>Full</th></tr></thead><tbody>
+            <tr><td><span class="vdot"></span>Veg Shami Kabab</td><td>₹59</td><td>₹89</td></tr>
+            <tr><td><span class="vdot"></span>Veg Falafel</td><td>₹59</td><td>₹89</td></tr>
+            <tr><td><span class="vdot"></span>Veg Seekh Kabab</td><td>₹69</td><td>₹109</td></tr>
+            <tr><td><span class="vdot"></span>Veg Dahi Ke Kabab</td><td>₹79</td><td>₹129</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <!-- GARLIC BREAD -->
+      <div class="tab-panel" id="tab-garlicbread">
+        <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+          <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Garlic Bread</p>
+          <table class="ptable"><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>
+            <tr><td><span class="vdot"></span>Garlic Bread</td><td>₹69</td></tr>
+            <tr><td><span class="vdot"></span>Cheese Garlic Bread</td><td>₹99</td></tr>
+            <tr><td><span class="vdot"></span>Stuffed Cheese Garlic Bread</td><td>₹129</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <!-- PASTA -->
+      <div class="tab-panel" id="tab-pasta">
+        <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+          <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Pasta</p>
+          <table class="ptable"><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>
+            <tr><td><span class="vdot"></span>White Sauce Cheese Pasta</td><td>₹109</td></tr>
+            <tr><td><span class="vdot"></span>Red Sauce Pasta</td><td>₹109</td></tr>
+            <tr><td><span class="vdot"></span>Mix Sauce Pasta</td><td>₹109</td></tr>
+            <tr><td><span class="vdot"></span>Pasta &amp; Garlic Bread</td><td>₹139</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <!-- MOMOS -->
+      <div class="tab-panel" id="tab-momos">
+        <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+          <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Momos</p>
+          <table class="ptable"><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>
+            <tr><td><span class="vdot"></span>Steamed Veg Momo</td><td>₹89</td></tr>
+            <tr><td><span class="vdot"></span>Steamed Paneer Momo</td><td>₹109</td></tr>
+            <tr><td><span class="vdot"></span>Fried Veg Momo</td><td>₹99</td></tr>
+            <tr><td><span class="vdot"></span>Fried Paneer Momo</td><td>₹119</td></tr>
+            <tr><td><span class="vdot"></span>Kurkure Veg Momo (6 pcs)</td><td>₹139</td></tr>
+            <tr><td><span class="vdot"></span>Kurkure Paneer Momo (6 pcs)</td><td>₹159</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <!-- BURGERS -->
+      <div class="tab-panel" id="tab-burgers">
+        <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+          <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Burgers</p>
+          <table class="ptable"><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>
+            <tr><td><span class="vdot"></span>Crunchy Aloo Tikki</td><td>₹49</td></tr>
+            <tr><td><span class="vdot"></span>Crunchy Aloo Tikki Cheese</td><td>₹69</td></tr>
+            <tr><td><span class="vdot"></span>Super Veggie</td><td>₹89</td></tr>
+            <tr><td><span class="vdot"></span>Super Veggie Cheese</td><td>₹109</td></tr>
+            <tr><td><span class="vdot"></span>Peri Peri Cheese Zinger</td><td>₹119</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <!-- SANDWICH -->
+      <div class="tab-panel" id="tab-sandwich">
+        <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+          <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Sandwich</p>
+          <table class="ptable"><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>
+            <tr><td><span class="vdot"></span>Vegetables</td><td>₹59</td></tr>
+            <tr><td><span class="vdot"></span>Vegetable &amp; Cheese</td><td>₹79</td></tr>
+            <tr><td><span class="vdot"></span>Paneer</td><td>₹99</td></tr>
+            <tr><td><span class="vdot"></span>Paneer &amp; Cheese</td><td>₹119</td></tr>
+            <tr><td><span class="vdot"></span>Corn &amp; Cheese (Peri Peri)</td><td>₹119</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <!-- FRENCH FRIES -->
+      <div class="tab-panel" id="tab-fries">
+        <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+          <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">French Fries</p>
+          <table class="ptable"><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>
+            <tr><td><span class="vdot"></span>Masala French Fries</td><td>₹79</td></tr>
+            <tr><td><span class="vdot"></span>Cheese Masala Fries</td><td>₹89</td></tr>
+            <tr><td><span class="vdot"></span>Peri Peri Fries</td><td>₹89</td></tr>
+            <tr><td><span class="vdot"></span>Peri Peri Cheese Fries</td><td>₹109</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <!-- PIZZA -->
+      <div class="tab-panel" id="tab-pizza">
+        <div class="space-y-5">
+          <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+            <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Signature Pizza · S / M / L</p>
+            <table class="ptable"><thead><tr><th>Item</th><th>S</th><th>M</th><th>L</th></tr></thead><tbody>
+              <tr><td><span class="vdot"></span>Margherita</td><td>₹109</td><td>₹159</td><td>₹309</td></tr>
+              <tr><td><span class="vdot"></span>Cheese &amp; Tomato</td><td>₹119</td><td>₹199</td><td>₹329</td></tr>
+              <tr><td><span class="vdot"></span>Cheese &amp; Onion</td><td>₹119</td><td>₹199</td><td>₹329</td></tr>
+              <tr><td><span class="vdot"></span>Cheese &amp; Capsicum</td><td>₹119</td><td>₹199</td><td>₹329</td></tr>
+              <tr><td><span class="vdot"></span>Cheese &amp; Corn</td><td>₹119</td><td>₹199</td><td>₹329</td></tr>
+            </tbody></table>
+          </div>
+          <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+            <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Premium Pizza · S / M / L</p>
+            <table class="ptable"><thead><tr><th>Item</th><th>S</th><th>M</th><th>L</th></tr></thead><tbody>
+              <tr><td><span class="vdot"></span>Fresh Veggies</td><td>₹189</td><td>₹299</td><td>₹399</td></tr>
+              <tr><td><span class="vdot"></span>Farm Fresh</td><td>₹189</td><td>₹299</td><td>₹399</td></tr>
+              <tr><td><span class="vdot"></span>Deluxe Veggie</td><td>₹189</td><td>₹299</td><td>₹399</td></tr>
+            </tbody></table>
+          </div>
+          <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+            <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Supreme Pizza · S / M / L</p>
+            <table class="ptable"><thead><tr><th>Item</th><th>S</th><th>M</th><th>L</th></tr></thead><tbody>
+              <tr><td><span class="vdot"></span>Spicy Veg</td><td>₹199</td><td>₹309</td><td>₹499</td></tr>
+              <tr><td><span class="vdot"></span>Peppy Paneer</td><td>₹199</td><td>₹309</td><td>₹499</td></tr>
+              <tr><td><span class="vdot"></span>Veg Supreme</td><td>₹199</td><td>₹309</td><td>₹499</td></tr>
+              <tr><td><span class="vdot"></span>Paneer Makhani</td><td>₹199</td><td>₹309</td><td>₹499</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+      <!-- COMBOS -->
+      <div class="tab-panel" id="tab-combos">
+        <div class="space-y-5">
+          <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+            <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Couple Value Combo · 2 Pizzas</p>
+            <table class="ptable"><thead><tr><th>Category</th><th>S</th><th>M</th><th>L</th></tr></thead><tbody>
+              <tr><td><span class="vdot"></span>Signature (2)</td><td>₹209</td><td>₹339</td><td>₹569</td></tr>
+              <tr><td><span class="vdot"></span>Premium (2)</td><td>₹319</td><td>₹499</td><td>₹699</td></tr>
+              <tr><td><span class="vdot"></span>Supreme (2)</td><td>₹329</td><td>₹599</td><td>₹899</td></tr>
+            </tbody></table>
+          </div>
+          <div class="rounded-2xl overflow-hidden border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-4 sm:p-6">
+            <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-3">Value Meals · Pizza + 2 Drinks + Fries</p>
+            <table class="ptable"><thead><tr><th>Combo</th><th>Price</th></tr></thead><tbody>
+              <tr><td><span class="vdot"></span>Meal for 2 — Signature</td><td>₹259</td></tr>
+              <tr><td><span class="vdot"></span>Meal for 2 — Premium</td><td>₹359</td></tr>
+              <tr><td><span class="vdot"></span>Meal for 2 — Supreme</td><td>₹389</td></tr>
+              <tr><td><span class="vdot"></span>Meal for 4 — Signature</td><td>₹359</td></tr>
+              <tr><td><span class="vdot"></span>Meal for 4 — Premium</td><td>₹459</td></tr>
+              <tr><td><span class="vdot"></span>Meal for 4 — Supreme</td><td>₹559</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+      <!-- BEVERAGES -->
+      <div class="tab-panel" id="tab-beverages">
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div class="rounded-2xl border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-5">
+            <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-2">Ice Tea · ₹69</p>
+            <p class="text-ink/70 text-[13.5px] leading-relaxed">Lemon Mint · Blueberry · Blackcurrant</p>
+          </div>
+          <div class="rounded-2xl border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-5">
+            <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-2">Mocktail Cooler · ₹69</p>
+            <p class="text-ink/70 text-[13.5px] leading-relaxed">Blue Lagoon · Green Mint · Passion Fruit · Virgin Mojito</p>
+          </div>
+          <div class="rounded-2xl border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-5">
+            <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-2">Premium Shakes · ₹99</p>
+            <p class="text-ink/70 text-[13.5px] leading-relaxed">Butter Scotch · Strawberry · Heavy Chocolate · Blueberry · Oreo Punch</p>
+          </div>
+          <div class="rounded-2xl border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-5">
+            <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-2">Bubble Tea · ₹99</p>
+            <p class="text-ink/70 text-[13.5px] leading-relaxed">Taro · Tiramisu · Hazelnut · Chocolate · Coffee · Cookies &amp; Cream</p>
+          </div>
+          <div class="rounded-2xl border border-ink/8 bg-white shadow-[0_3px_14px_rgba(28,20,12,.05)] p-5 sm:col-span-2">
+            <p class="font-body font-bold text-forest text-[11px] tracking-[.16em] uppercase mb-2">Cold Coffee · ₹99</p>
+            <p class="text-ink/70 text-[13.5px] leading-relaxed">Classic Coffee · Hazelnut Coffee · Butter Scotch</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- seam: menu (cream) → favourites (sage) -->
+<div class="seam bg-cream"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,40 C180,90 320,10 480,45 C640,80 760,95 900,55 C1040,15 1180,10 1320,40 C1380,52 1410,58 1440,50 L1440,100 L0,100 Z" fill="#E7EFDD"></path></svg></div>
+
+<!-- ══════════════ GUEST FAVOURITES ══════════════ -->
+<section id="favourites" class="bg-sage pt-2 pb-4">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8">
+    <div class="flex items-end justify-between mb-7 reveal">
+      <div>
+        <h2 class="font-display font-bold text-ink" style="font-size:clamp(26px,3.6vw,34px);letter-spacing:-.02em">Guest favourites</h2>
+      </div>
+      <a href="#menu" class="text-forest text-[12px] font-bold underline underline-offset-4 shrink-0 hover:text-burnt transition-colors">View full menu →</a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6" id="fav-grid"></div>
+  </div>
+</section>
+
+<!-- seam: favourites (sage) → reviews (cream) -->
+<div class="seam bg-sage"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,40 C180,90 320,10 480,45 C640,80 760,95 900,55 C1040,15 1180,10 1320,40 C1380,52 1410,58 1440,50 L1440,100 L0,100 Z" fill="#FBF6EC"></path></svg></div>
+
+<!-- ══════════════ REVIEWS ══════════════ -->
+<section id="reviews" class="bg-cream pt-2 pb-10 overflow-hidden">
+  <div class="text-center mb-8 reveal">
+    <h2 class="font-display font-bold text-ink" style="font-size:clamp(26px,3.6vw,34px);letter-spacing:-.02em">Loved by our guests</h2>
+  </div>
+  <div class="mq-mask relative">
+    <div class="mq-track" id="mq-track"></div>
+  </div>
+</section>
+
+<!-- seam: reviews (cream) → visit + footer (forest) -->
+<div class="seam bg-cream"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,40 C180,90 320,10 480,45 C640,80 760,95 900,55 C1040,15 1180,10 1320,40 C1380,52 1410,58 1440,50 L1440,100 L0,100 Z" fill="#14432E"></path></svg></div>
+
+<!-- ══════════════ VISIT US + FOOTER ══════════════ -->
+<footer id="visit" class="bg-forest text-cream">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8 pt-2 pb-14">
+    <div class="text-center mb-9 reveal">
+      <h2 class="font-display font-bold text-cream" style="font-size:clamp(26px,3.6vw,34px);letter-spacing:-.02em">Hours, address &amp; contact</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5">
+      <div class="reveal bg-cream/5 border border-cream/12 rounded-3xl p-7">
+        <div class="text-marigold bg-marigold/15 rounded-full grid place-items-center mb-5" style="width:52px;height:52px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        </div>
+        <h3 class="font-display font-bold text-[19px] mb-3.5">Our Address</h3>
+        <p class="text-cream/65 text-[14.5px] leading-[1.85]">The London Bakery<br>College More, Grand Trunk Rd<br>Near HDFC Bank<br>Kulti, West Bengal 713343</p>
+      </div>
+      <div class="reveal bg-cream/5 border border-cream/12 rounded-3xl p-7">
+        <div class="text-marigold bg-marigold/15 rounded-full grid place-items-center mb-5" style="width:52px;height:52px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        </div>
+        <h3 class="font-display font-bold text-[19px] mb-3">Opening Hours</h3>
+        <div id="hours"></div>
+      </div>
+      <div class="reveal bg-cream/5 border border-cream/12 rounded-3xl p-7 flex flex-col">
+        <div class="text-marigold bg-marigold/15 rounded-full grid place-items-center mb-5" style="width:52px;height:52px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </div>
+        <h3 class="font-display font-bold text-[19px] mb-2.5">Get In Touch</h3>
+        <p class="text-cream/65 text-[14px] leading-relaxed mb-5">Call us for orders, reservations, or any queries. We're happy to help!</p>
+        <a href="tel:+919734541675" class="btn-burnt text-white text-center text-[15px] font-bold rounded-xl px-5 py-4 mb-3">+91 97345 41675</a>
+        <a href="https://instagram.com/pizza.jons" target="_blank" rel="noopener" class="btn-ghost flex items-center justify-center gap-2.5 text-cream/90 text-[14px] font-semibold border border-cream/20 rounded-xl px-4 py-3.5 hover:border-cream/45">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg>
           @pizza.jons
         </a>
       </div>
-
     </div>
   </div>
-</section>
 
-<!-- ═══════════════ FOOTER ═══════════════ -->
-<footer class="bg-white py-14 relative">
-  <div class="gold-line absolute top-0 left-0 right-0"></div>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center gap-5">
-    <img src="brand_assets/logo.png" alt="The London Bakery" class="h-16 w-auto opacity-90">
-    <p class="font-display italic text-espresso/80 text-base">London's Craft. Your City's Flavour.</p>
-    <div class="flex items-center gap-6">
-      <a href="https://www.instagram.com/pizza.jons/" target="_blank" rel="noopener noreferrer" class="text-espresso/70 hover:text-espresso transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-espresso rounded-sm" aria-label="Instagram">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-      </a>
-      <a href="tel:+919734541675" class="text-espresso/70 hover:text-espresso transition-colors duration-200 text-sm font-body tracking-wider">+91 97345 41675</a>
-    </div>
-    <p class="text-espresso/60 text-xs tracking-wider font-body">© 2025 The London Bakery. All rights reserved.</p>
+  <div class="grid grid-cols-3 border-t border-cream/12 border-b border-cream/12">
+    <div class="text-center py-7"><div class="font-display font-bold text-marigold" style="font-size:clamp(28px,4vw,38px)" data-count="11" data-suf="+">11+</div><p class="text-cream/60 text-[11px] tracking-[.1em] uppercase mt-1">Categories</p></div>
+    <div class="text-center py-7 border-l border-r border-cream/12"><div class="font-display font-bold text-marigold" style="font-size:clamp(28px,4vw,38px)" data-count="100" data-suf="%">100%</div><p class="text-cream/60 text-[11px] tracking-[.1em] uppercase mt-1">Fresh daily</p></div>
+    <div class="text-center py-7"><div class="font-display font-bold text-marigold" style="font-size:clamp(28px,4vw,38px)" data-count="4.9" data-suf="★">4.9★</div><p class="text-cream/60 text-[11px] tracking-[.1em] uppercase mt-1">Avg. rating</p></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-5 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <img src="brand_assets/cropped_logo.png" alt="The London Bakery" class="h-9 w-auto" style="filter:brightness(0) invert(1);opacity:.9">
+    <p class="text-cream/55 text-[12px] text-center sm:text-right">College More · Grand Trunk Rd · Kulti, West Bengal · +91 97345 41675</p>
   </div>
 </footer>
 
 <script>
-  // ── MOBILE MENU ──
-  const hamBtn = document.getElementById('ham-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const hamIcon = document.getElementById('ham-icon');
-  const closeIcon = document.getElementById('close-icon');
-  hamBtn.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('open');
-    hamIcon.classList.toggle('hidden', isOpen);
-    closeIcon.classList.toggle('hidden', !isOpen);
-    hamBtn.setAttribute('aria-expanded', isOpen);
-  });
-  mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      hamIcon.classList.remove('hidden');
-      closeIcon.classList.add('hidden');
-      hamBtn.setAttribute('aria-expanded', 'false');
-    });
-  });
+(function(){
+  "use strict";
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ── TAB SYSTEM ──
-  const tabBtns = document.querySelectorAll('.tab-btn');
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.tab;
-      tabBtns.forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      const panel = document.getElementById('tab-' + target);
-      if (panel) panel.classList.add('active');
-    });
-  });
+  /* ── Nav shadow + mobile menu ── */
+  var nav = document.getElementById('nav');
+  var onScroll = function(){ nav.classList.toggle('scrolled', window.scrollY > 12); };
+  onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
 
-  // ── HERO STAGGERED FADE-IN ──
-  const heroDelays = [150, 420, 640, 830, 1020];
-  document.querySelectorAll('[data-hero-delay]').forEach(el => {
-    const idx = parseInt(el.dataset.heroDelay, 10);
-    setTimeout(() => el.classList.add('hero-visible'), heroDelays[idx] ?? 200);
-  });
+  var ham = document.getElementById('ham'), mm = document.getElementById('mobile-menu');
+  var ho = document.getElementById('ham-open'), hc = document.getElementById('ham-close');
+  function setMenu(open){ mm.classList.toggle('open', open); ho.classList.toggle('hidden', open); hc.classList.toggle('hidden', !open); ham.setAttribute('aria-expanded', open); }
+  ham.addEventListener('click', function(){ setMenu(!mm.classList.contains('open')); });
+  document.querySelectorAll('.mob-link').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
 
-  // ── SCROLL REVEAL ──
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  /* ── Data ── */
+  var favourites = [
+    { id:'pizza',   name:'Paneer Margherita',    tag:'Stone-Baked',     price:299, old:349, rating:'4.9', img:'dishes/pizza.png' },
+    { id:'momos',   name:'Steamed Paneer Momos', tag:'Handcrafted',     price:99,  old:null, rating:'4.8', img:'dishes/momos.png' },
+    { id:'chaap',   name:'Malai Soya Chaap',     tag:"Delhi's Special", price:159, old:null, rating:'4.9', img:'dishes/malai_chaap.png' },
+    { id:'brownie', name:'Hot Fudge Brownie',    tag:'Sweet Endings',   price:119, old:null, rating:'4.8', img:'dishes/brownie.png' }
+  ];
+  var testimonials = [
+    { initial:'P', name:'Pushpa Bhagat',   role:'Verified guest', quote:'Crispy crust, rich sauce, generous toppings — never disappoints. A must-try for pizza lovers.' },
+    { initial:'V', name:'Vivek Bhagat',    role:'Verified guest', quote:'Hands down the tastiest pizza I have had in ages. A flavour bomb — savoury and cheesy.' },
+    { initial:'M', name:'Muhammad Jaseem', role:'Verified guest', quote:'The best. Take-out available. Exceptional food, service and atmosphere on every visit.' },
+    { initial:'Z', name:'Zia Mallick',     role:'Local guide',    quote:'Baked properly and tastes way better than the big chains. Clearly superior quality.' },
+    { initial:'N', name:'Nahid Parween',   role:'Local guide',    quote:'Food so delicious and served in less time. Staff are amicable. Highly recommended.' },
+    { initial:'K', name:'Kshiti Gupta',    role:'Verified guest', quote:'Ambience is lovely and every beverage tasted delicious. Excellent food and service.' }
+  ];
+  var hours = [['Monday','10:30 am – 10:00 pm'],['Tuesday','10:30 am – 10:00 pm'],['Wednesday','10:30 am – 10:00 pm'],['Thursday','10:30 am – 10:00 pm'],['Friday','10:30 am – 10:00 pm'],['Saturday','10:30 am – 10:00 pm'],['Sunday','10:30 am – 10:00 pm']];
 
-  document.querySelectorAll('.reveal').forEach(el => {
-    if (!el.classList.contains('visible')) revealObserver.observe(el);
-  });
-
-  // ── COUNT-UP ANIMATION ──
-  let countUpDone = false;
-  const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !countUpDone) {
-        countUpDone = true;
-        document.querySelectorAll('.stat-num').forEach(el => {
-          const target = parseFloat(el.dataset.target);
-          const suffix = el.dataset.suffix || '';
-          const isDecimal = target % 1 !== 0;
-          const duration = 1800;
-          const start = performance.now();
-          const animate = (now) => {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            const current = isDecimal
-              ? (target * eased).toFixed(1)
-              : Math.floor(target * eased);
-            el.textContent = current + suffix;
-            if (progress < 1) requestAnimationFrame(animate);
-          };
-          requestAnimationFrame(animate);
-        });
-      }
-    });
-  }, { threshold: 0.5 });
-
-  const statsEl = document.querySelector('.stat-num');
-  if (statsEl) statsObserver.observe(statsEl.closest('.grid') || statsEl);
-
-  // ── NAVBAR SCROLL GLASS ──
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-  }, { passive: true });
-
-  // ── HERO PARALLAX ──
-  const heroSection = document.querySelector('.hero-parallax');
-  if (heroSection) {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY;
-      if (scrolled < window.innerHeight) {
-        heroSection.style.backgroundPositionY = (scrolled * 0.35) + 'px';
-      }
-    }, { passive: true });
+  /* ── Cart / favourites render ── */
+  var cart = {};
+  var grid = document.getElementById('fav-grid');
+  function priceStr(n){ return '₹' + n; }
+  function renderFavourites(){
+    grid.innerHTML = favourites.map(function(p){
+      var qty = cart[p.id] || 0;
+      var control = qty > 0
+        ? '<div class="flex items-center gap-1 bg-forest rounded-xl p-1">'
+          + '<button data-dec="'+p.id+'" aria-label="Remove one '+p.name+'" class="w-8 h-8 rounded-lg text-white text-lg font-bold hover:bg-white/10">−</button>'
+          + '<span class="min-w-[24px] text-center text-white font-bold text-[14px]">'+qty+'</span>'
+          + '<button data-inc="'+p.id+'" aria-label="Add one '+p.name+'" class="w-8 h-8 rounded-lg bg-burnt text-white text-lg font-bold hover:bg-burntdk">+</button>'
+          + '</div>'
+        : '<button data-add="'+p.id+'" class="bg-forest text-white text-[13px] font-bold px-5 py-2.5 rounded-xl hover:bg-burnt transition-colors">Add +</button>';
+      var oldPrice = p.old ? '<span class="text-[13px] text-mute line-through">'+priceStr(p.old)+'</span>' : '';
+      return ''
+      + '<div class="lift bg-white rounded-3xl p-4 shadow-[0_3px_14px_rgba(28,20,12,.07)] flex flex-col">'
+      +   '<div class="relative rounded-2xl overflow-hidden bg-white" style="aspect-ratio:1402/1122">'
+      +     '<img src="'+p.img+'" alt="'+p.name+'" class="w-full h-full object-contain">'
+      +     '<span class="absolute top-3 left-3 w-5 h-5 rounded border-2 border-white grid place-items-center" style="background:#1E9E52;box-shadow:0 1px 4px rgba(0,0,0,.3)"><span class="w-2 h-2 rounded-full bg-white"></span></span>'
+      +     '<span class="absolute top-3 right-3 text-[12px] font-bold text-marigold bg-ink/70 px-2.5 py-1 rounded-full backdrop-blur-sm">★ '+p.rating+'</span>'
+      +   '</div>'
+      +   '<p class="mt-3.5 font-body font-bold text-[10.5px] tracking-[.12em] uppercase text-gold">'+p.tag+'</p>'
+      +   '<h3 class="font-display font-bold text-[18px] leading-tight mt-0.5 mb-3">'+p.name+'</h3>'
+      +   '<div class="mt-auto flex items-center justify-between">'
+      +     '<div class="flex items-baseline gap-1.5"><span class="font-display font-bold text-[22px] text-forest">'+priceStr(p.price)+'</span>'+oldPrice+'</div>'
+      +     control
+      +   '</div>'
+      + '</div>';
+    }).join('');
   }
+  grid.addEventListener('click', function(e){
+    var t = e.target.closest('[data-add],[data-inc],[data-dec]'); if(!t) return;
+    var add=t.getAttribute('data-add'), inc=t.getAttribute('data-inc'), dec=t.getAttribute('data-dec');
+    if(add){ cart[add]=(cart[add]||0)+1; }
+    else if(inc){ cart[inc]=(cart[inc]||0)+1; }
+    else if(dec){ var q=(cart[dec]||0)-1; if(q<=0) delete cart[dec]; else cart[dec]=q; }
+    renderFavourites();
+  });
+  renderFavourites();
+
+  /* ── Testimonials marquee (doubled for seamless loop) ── */
+  var mq = document.getElementById('mq-track');
+  function card(t){
+    return '<div class="shrink-0 w-[300px] bg-white rounded-2xl p-6 shadow-[0_3px_14px_rgba(28,20,12,.06)]">'
+      + '<div class="text-marigold tracking-[2px] text-[13px] mb-2.5">★★★★★</div>'
+      + '<p class="text-ink/70 text-[13.5px] leading-relaxed mb-4">"'+t.quote+'"</p>'
+      + '<div class="flex items-center gap-2.5 pt-3.5 border-t border-ink/8">'
+      +   '<span class="w-9 h-9 rounded-full bg-forest text-white grid place-items-center font-bold text-[13px]">'+t.initial+'</span>'
+      +   '<div><p class="font-bold text-[13px]">'+t.name+'</p><p class="text-mute text-[11px]">'+t.role+' · ★★★★★</p></div>'
+      + '</div></div>';
+  }
+  var seq = testimonials.map(card).join('');
+  mq.innerHTML = seq + seq;
+  if(reduce) mq.style.animation = 'none';
+
+  /* ── Hours ── */
+  document.getElementById('hours').innerHTML = hours.map(function(h){
+    return '<div class="flex items-center justify-between py-2.5 border-b border-cream/10">'
+      + '<span class="text-cream/65 text-[13.5px]">'+h[0]+'</span>'
+      + '<span class="text-cream/95 text-[13.5px] font-semibold">'+h[1]+'</span></div>';
+  }).join('');
+
+  /* ── Menu tabs ── */
+  var bar = document.getElementById('tab-bar'), ind = document.getElementById('tab-ind');
+  var btns = Array.prototype.slice.call(bar.querySelectorAll('.tab-btn'));
+  function moveInd(btn){ ind.style.left = btn.offsetLeft + 'px'; ind.style.width = btn.offsetWidth + 'px'; }
+  function activate(tab, scroll){
+    btns.forEach(function(b){ b.classList.toggle('active', b.dataset.tab===tab); });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.toggle('active', p.id==='tab-'+tab); });
+    var active = btns.filter(function(b){ return b.dataset.tab===tab; })[0];
+    if(active){ moveInd(active); if(scroll){ active.scrollIntoView({ inline:'center', block:'nearest', behavior:'smooth' }); } }
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ activate(b.dataset.tab, true); }); });
+  document.querySelectorAll('.cat-link').forEach(function(a){
+    a.addEventListener('click', function(){ if(a.dataset.cat) activate(a.dataset.cat, true); });
+  });
+  window.addEventListener('load', function(){ var a=bar.querySelector('.tab-btn.active'); if(a) moveInd(a); });
+  window.addEventListener('resize', function(){ var a=bar.querySelector('.tab-btn.active'); if(a) moveInd(a); });
+  activate('chaap', false);
+
+  /* ── Scroll reveals ── */
+  var revs = document.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    revs.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold:0.12 });
+    revs.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ── Count-ups ── */
+  function runCount(el){
+    if(el.dataset.done) return; el.dataset.done='1';
+    var target=parseFloat(el.getAttribute('data-count')), suf=el.getAttribute('data-suf')||'';
+    var dec=(target%1!==0)?1:0, dur=1400, st=performance.now();
+    if(reduce){ el.textContent=target.toFixed(dec)+suf; return; }
+    function step(now){ var p=Math.min(1,(now-st)/dur); p=1-Math.pow(1-p,3); el.textContent=(target*p).toFixed(dec)+suf; if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  var counts=document.querySelectorAll('[data-count]');
+  if(!('IntersectionObserver' in window)){ counts.forEach(runCount); }
+  else { var cio=new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ runCount(e.target); cio.unobserve(e.target); } }); }, { threshold:0.5 }); counts.forEach(function(el){ cio.observe(el); }); }
+
+})();
 </script>
 </body>
 </html>

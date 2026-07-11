@@ -1,277 +1,230 @@
-# Restaurant Menu
+# Pizza Jon's Menu
 
-## CHAAP
-### Delhi's Special Chaap
+**100% Pure Veg • Prepared With Love**
+
+---
+
+# Tandoori Chaap
 
 | Item | Half | Full |
-|------|------|------|
-| Veg Afghani Chaap | ₹89 | ₹159 |
-| Veg Malai Chaap | ₹89 | ₹159 |
-| Veg Boti Chaap | ₹89 | ₹159 |
-| Amritsari Achari Chaap | ₹89 | ₹159 |
-| Veg Kurkuri Chaap | ₹89 | ₹159 |
+|--------|------|------|
+| Malai Chaap | ₹99 | ₹169 |
+| Afghani Chaap | ₹99 | ₹169 |
+| Veg Boti Chaap | ₹99 | ₹169 |
+| Amritsari Achari Chaap | ₹99 | ₹169 |
+| Kurkure Chaap | ₹99 | ₹169 |
 
 ---
 
-## VEG MOMOS
+# Veg Kababs
 
-### Veg Steamed Momos
-
-| Item | Price |
-|------|-------|
-| Steamed Veg Momo | ₹79 |
-| Steamed Veg Popcorn Momo | ₹79 |
-| Steamed Paneer Momo | ₹99 |
-| Steamed Paneer Popcorn Momo | ₹99 |
-| Steamed Cheese Momos | ₹109 |
-| Steamed Cheese & Corn Momos | ₹109 |
-
-### Fried Veg Momos
-
-| Item | Price |
-|------|-------|
-| Fried Veg Momo | ₹89 |
-| Fried Popcorn Veg Momo | ₹89 |
-| Fried Paneer Momo | ₹109 |
-| Fried Paneer Popcorn Momo | ₹109 |
-| Fried Cheese Momos | ₹119 |
-| Fried Cheese & Corn Momos | ₹119 |
-
-### Kurkure Veg Momos
-
-| Item | Price |
-|------|-------|
-| Kurkure Veg Momos | ₹129 |
-| Kurkure Paneer Momos | ₹139 |
+| Item | Half | Full |
+|--------|------|------|
+| Veg Shami Kabab | ₹59 | ₹89 |
+| Veg Falafel | ₹59 | ₹89 |
+| Veg Seekh Kabab | ₹69 | ₹109 |
+| Veg Dahi Ke Kabab | ₹79 | ₹129 |
 
 ---
 
-## VEG BURGER
+# Garlic Bread
 
 | Item | Price |
-|------|-------|
+|--------|------|
+| Garlic Bread | ₹69 |
+| Cheese Garlic Bread | ₹99 |
+| Stuffed Cheese Garlic Bread | ₹129 |
+
+---
+
+# Pasta
+
+| Item | Price |
+|--------|------|
+| White Sauce Cheese Pasta | ₹109 |
+| Red Sauce Pasta | ₹109 |
+| Mix Sauce Pasta | ₹109 |
+| Pasta & Garlic Bread | ₹139 |
+
+---
+
+# Momos
+
+| Item | Price |
+|--------|------|
+| Steamed Veg Momo | ₹89 |
+| Steamed Paneer Momo | ₹109 |
+| Fried Veg Momo | ₹99 |
+| Fried Paneer Momo | ₹119 |
+| Kurkure Veg Momo (6 pcs) | ₹139 |
+| Kurkure Paneer Momo (6 pcs) | ₹159 |
+
+---
+
+# Burgers
+
+| Item | Price |
+|--------|------|
 | Crunchy Aloo Tikki | ₹49 |
-| Crunchy Aloo Tikki Burger & Cheese | ₹69 |
-| Super Veggie | ₹79 |
-| Super Veggie & Cheese | ₹99 |
-| Peri Peri Cheese Zinger Burger | ₹109 |
+| Crunchy Aloo Tikki Cheese | ₹69 |
+| Super Veggie | ₹89 |
+| Super Veggie Cheese | ₹109 |
+| Peri Peri Cheese Zinger | ₹119 |
 
 ---
 
-## SANDWICH
+# Sandwich
 
 | Item | Price |
-|------|-------|
-| Vegetables | ₹49 |
-| Vegetable & Cheese | ₹69 |
-| Paneer & Vegetable | ₹69 |
-| Paneer & Vegetables with Cheese | ₹89 |
-| Peri Peri Masala Corn & Cheese | ₹99 |
+|--------|------|
+| Vegetables | ₹59 |
+| Vegetable & Cheese | ₹79 |
+| Paneer | ₹99 |
+| Paneer & Cheese | ₹119 |
+| Corn & Cheese (Peri Peri) | ₹119 |
 
 ---
 
-## SIDES & SNACKS
+# French Fries
 
 | Item | Price |
-|------|-------|
-| French Fries / Cheese Masala Fries | ₹69 |
-| Peri Peri Fries | ₹79 |
-| Peri Peri Cheese Fries | ₹99 |
-| Garlic Bread | ₹59 |
-| Cheese Garlic Bread | ₹89 |
-| Stuffed Cheese Garlic Bread | ₹119 |
+|--------|------|
+| Masala French Fries | ₹79 |
+| Cheese Masala Fries | ₹89 |
+| Peri Peri Fries | ₹89 |
+| Peri Peri Cheese Fries | ₹109 |
 
 ---
 
-## VEG KABABS
-### Delhi's Special Veg Kababs
+# Signature Pizza
 
-| Item | Half | Full |
-|------|------|------|
-| Veg Shami Kabab | ₹99 | ₹99 |
-| Hara Bhara Kabab | ₹99 | ₹99 |
-| Falafel Veg Seekh Kabab | ₹99 | ₹99 |
-| Veg Dahi Ke Kabab | ₹99 | ₹99 |
+### Small / Medium / Large
 
----
-
-## NON VEG MOMOS
-
-### Steamed
-
-| Item | Price |
-|------|-------|
-| Chicken Momo | ₹99 |
-| Butter Chicken Momo | ₹109 |
-| Chicken Cheese Momo | ₹109 |
-
-### Fried
-
-| Item | Price |
-|------|-------|
-| Fried Chicken Momo | ₹109 |
-| Fried Butter Chicken Momo | ₹119 |
-| Fried Chicken Cheese Momo | ₹139 |
-| Chicken Kurkure Momo | ₹119 |
+| Item | S | M | L |
+|--------|------|------|------|
+| Margherita | ₹109 | ₹159 | ₹309 |
+| Cheese & Tomato | ₹119 | ₹199 | ₹329 |
+| Cheese & Onion | ₹119 | ₹199 | ₹329 |
+| Cheese & Capsicum | ₹119 | ₹199 | ₹329 |
+| Cheese & Corn | ₹119 | ₹199 | ₹329 |
 
 ---
 
-## PASTA
+# Premium Pizza
 
-### Pasta @ ₹99
+### Small / Medium / Large
 
-- White Sauce Cheese Pasta
-- Red Sauce Pasta
-- Mix Sauce Pasta
-
-### Pasta + Garlic Bread @ ₹129
-
-- White Sauce Cheese Pasta
-- Red Sauce Pasta
-- Mix Sauce Pasta
+| Item | S | M | L |
+|--------|------|------|------|
+| Fresh Veggies | ₹189 | ₹299 | ₹399 |
+| Farm Fresh | ₹189 | ₹299 | ₹399 |
+| Deluxe Veggie | ₹189 | ₹299 | ₹399 |
 
 ---
 
-## NON VEG BURGER
+# Supreme Pizza
 
-| Item | Price |
-|------|-------|
-| Chicken Burger | ₹69 |
-| Chicken & Cheese Burger | ₹89 |
-| Crunchy Chicken Tikki Burger | ₹99 |
-| Crunchy Chicken Tikki & Cheese Burger | ₹119 |
-| Peri Peri Chicken & Cheese Zinger Burger | ₹129 |
+### Small / Medium / Large
 
----
-
-## NON VEG SANDWICH
-
-| Item | Price |
-|------|-------|
-| Chicken Sandwich | ₹119 |
-| Chicken Sandwich & Cheese | ₹139 |
+| Item | S | M | L |
+|--------|------|------|------|
+| Spicy Veg | ₹199 | ₹309 | ₹499 |
+| Peppy Paneer | ₹199 | ₹309 | ₹499 |
+| Veg Supreme | ₹199 | ₹309 | ₹499 |
+| Paneer Makhani | ₹199 | ₹309 | ₹499 |
 
 ---
 
-## SPRING ROLL
+# Couple Value Combo
 
-| Item | Half | Full |
-|------|------|------|
-| Veg Spring Roll | ₹70 | ₹120 |
-| Paneer Spring Roll | ₹80 | ₹140 |
-| Chicken Spring Roll | ₹80 | ₹140 |
+### 2 Pizzas
+
+| Category | S | M | L |
+|--------|------|------|------|
+| Signature (2) | ₹209 | ₹339 | ₹569 |
+| Premium (2) | ₹319 | ₹499 | ₹699 |
+| Supreme (2) | ₹329 | ₹599 | ₹899 |
 
 ---
 
-## PIZZA
+# Value Meals
 
-### Veg Pizza
+### Pizza + 2 Drinks + Fries
 
-#### Signature
+| Combo | Price |
+|--------|------|
+| Meal for 2 - Signature | ₹259 |
+| Meal for 2 - Premium | ₹359 |
+| Meal for 2 - Supreme | ₹389 |
+| Meal for 4 - Signature | ₹359 |
+| Meal for 4 - Premium | ₹459 |
+| Meal for 4 - Supreme | ₹559 |
+
+---
+
+# Extra Toppings
 
 | Item | Small | Medium | Large |
-|------|-------|--------|-------|
-| Margherita Pizza | ₹99 | ₹149 | ₹299 |
-| Cheese & Tomato | ₹109 | ₹189 | ₹319 |
-| Cheese & Onion | ₹109 | ₹189 | ₹319 |
-| Cheese & Capsicum | ₹109 | ₹189 | ₹319 |
-| Cheese & Corn | ₹109 | ₹189 | ₹319 |
-
-#### Premium
-
-| Item | Small | Medium | Large |
-|------|-------|--------|-------|
-| Fresh Veggies | ₹195 | ₹299 | ₹399 |
-| Farm Fresh | ₹195 | ₹299 | ₹399 |
-| Deluxe Veggie | ₹195 | ₹299 | ₹399 |
-
-#### Supreme
-
-| Item | Small | Medium | Large |
-|------|-------|--------|-------|
-| Spicy Veg | ₹189 | ₹319 | ₹519 |
-| Peppy Paneer | ₹189 | ₹319 | ₹519 |
-| Veg Supreme | ₹189 | ₹319 | ₹519 |
-| Paneer Makhani | ₹189 | ₹319 | ₹519 |
-
-### Non Veg Pizza
-
-#### Signature
-
-| Item | Small | Medium | Large |
-|------|-------|--------|-------|
-| Cheese & Chicken | ₹195 | ₹329 | ₹489 |
-| Chicken & Corn | ₹195 | ₹329 | ₹489 |
-| Chicken & Onion | ₹195 | ₹329 | ₹489 |
-| Chicken Sausage | ₹195 | ₹329 | ₹489 |
-
-#### Premium
-
-| Item | Small | Medium | Large |
-|------|-------|--------|-------|
-| BBQ Chicken | ₹239 | ₹339 | ₹495 |
-| Hot & Spicy | ₹239 | ₹339 | ₹495 |
-| Chicken Peri Peri | ₹239 | ₹339 | ₹495 |
-| Chicken Salami | ₹239 | ₹339 | ₹495 |
-
-#### Supreme
-
-| Item | Small | Medium | Large |
-|------|-------|--------|-------|
-| Chicken Delight | ₹269 | ₹399 | ₹539 |
-| Chicken Kabab | ₹269 | ₹399 | ₹539 |
-| BBQ Chicken Supreme | ₹269 | ₹399 | ₹539 |
-| Chicken Mix | ₹269 | ₹399 | ₹539 |
-| Mexican Chicken | ₹269 | ₹399 | ₹539 |
-
----
-
-## DESSERTS
+|--------|------|------|------|
+| Extra Cheese / Burst | ₹40 | ₹70 | ₹90 |
+| Veg Toppings | ₹20 | ₹40 | ₹70 |
 
 | Item | Price |
-|------|-------|
-| Hot Fudge Brownie | ₹119 |
-| Chocolava Volcano | ₹99 |
-| Chocolate Temptation | ₹149 |
+|--------|------|
+| Cheese / Jalapeno Dip | ₹20 |
 
 ---
 
-## BEVERAGES
+# Beverages
 
-### Mocktail Cooler @ ₹69
+## Ice Tea — ₹69
+
+- Lemon Mint
+- Blueberry
+- Blackcurrant
+
+---
+
+## Mocktail Cooler — ₹69
 
 - Blue Lagoon
 - Green Mint
 - Passion Fruit
 - Virgin Mojito
 
-### Ice Tea @ ₹69
+---
 
-- Lemon Mint
-- Blueberry
-- Blackcurrant
-
-### Bubble Tea @ ₹99
-
-- Taro Bubble Tea
-- Tiramisu Bubble Tea
-- Hazelnut Bubble Tea
-- Chocolate Bubble Tea
-- Coffee Bubble Tea
-
-### Cold Coffee @ ₹99
-
-- Classic Coffee
-- Hazelnut Coffee
-- Butter Scotch
-- French Vanilla
-
-### Premium Shakes @ ₹99
+## Premium Shakes — ₹99
 
 - Butter Scotch
 - Strawberry
 - Heavy Chocolate
 - Blueberry
-- Black Currant
 - Oreo Punch
-- Vanilla Classic
+
+---
+
+## Bubble Tea — ₹99
+
+- Taro
+- Tiramisu
+- Hazelnut
+- Chocolate
+- Coffee
+- Cookies & Cream
+
+---
+
+## Cold Coffee — ₹99
+
+- Classic Coffee
+- Hazelnut Coffee
+- Butter Scotch
+
+---
+
+### Address
+
+**College Road, Near Kamla Nursing Home**
+
+📞 **9734 541 675**
